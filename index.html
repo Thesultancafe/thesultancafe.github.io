@@ -1,0 +1,1301 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+          content="The Sultan Cafe | Digital Menu Palembang Tempo Doeloe">
+
+    <meta name="theme-color"
+          content="#6b4b2a">
+
+    <title>The Sultan Cafe | Digital Menu</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap"
+          rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <!-- CSS -->
+    <link rel="stylesheet"
+          href="style.css">
+
+</head>
+
+<body>
+
+<!-- ==========================================
+LOADING SCREEN
+=========================================== -->
+
+<div id="loadingScreen">
+
+    <div class="loading-box">
+
+        <img src="logo.png"
+             alt="The Sultan Cafe Logo"
+             class="loading-logo">
+
+        <h1>THE SULTAN CAFE</h1>
+
+        <p>Palembang Tempo Doeloe</p>
+
+        <div class="loading-bar">
+
+            <span></span>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ==========================================
+HEADER
+=========================================== -->
+
+<header class="hero-header">
+
+    <div class="hero-overlay">
+
+        <div class="hero-content">
+
+            <img src="logo.png"
+                 alt="Logo"
+                 class="hero-logo">
+
+            <h1>The Sultan Cafe</h1>
+
+            <p>
+                Nikmati cita rasa khas Palembang
+                dengan suasana tempo doeloe yang
+                hangat, nyaman, dan berkelas.
+            </p>
+
+            <div class="hero-button">
+
+                <button id="btnLihatMenu"
+                        class="btn-primary">
+
+                    <i class="fa-solid fa-book-open"></i>
+
+                    Lihat Menu
+
+                </button>
+
+                <a href="#"
+                   id="btnWhatsapp"
+                   class="btn-secondary">
+
+                    <i class="fa-brands fa-whatsapp"></i>
+
+                    WhatsApp
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</header>
+
+<!-- ==========================================
+NAVIGATION
+=========================================== -->
+
+<nav class="navbar">
+
+    <button id="navHome"
+            class="nav-btn active">
+
+        <i class="fa-solid fa-house"></i>
+
+        Home
+
+    </button>
+
+    <button id="navMenu"
+            class="nav-btn">
+
+        <i class="fa-solid fa-utensils"></i>
+
+        Menu
+
+    </button>
+
+    <button id="navAdmin"
+            class="nav-btn">
+
+        <i class="fa-solid fa-user-lock"></i>
+
+        Admin
+
+    </button>
+
+</nav>
+
+<!-- ==========================================
+MAIN
+=========================================== -->
+
+<main>
+
+<!-- ==========================================
+HOME PAGE
+=========================================== -->
+
+<section id="homePage"
+         class="page active">
+
+    <div class="welcome-card">
+
+        <h2>Selamat Datang</h2>
+
+        <p>
+
+            The Sultan Cafe menghadirkan
+            pengalaman bersantap dengan
+            nuansa Palembang Tempo Doeloe.
+
+            Nikmati berbagai pilihan
+            makanan khas Palembang,
+            kopi pilihan,
+            minuman segar,
+            dan tempat yang nyaman
+            untuk keluarga,
+            teman,
+            rapat,
+            maupun acara spesial.
+
+        </p>
+
+    </div>
+
+    <div class="feature-grid">
+
+        <div class="feature-card">
+
+            <i class="fa-solid fa-bowl-food"></i>
+
+            <h3>Makanan Khas</h3>
+
+            <p>
+                Pempek,
+                Tekwan,
+                Model,
+                Pindang,
+                dan lainnya.
+            </p>
+
+        </div>
+
+        <div class="feature-card">
+
+            <i class="fa-solid fa-mug-hot"></i>
+
+            <h3>Coffee & Tea</h3>
+
+            <p>
+                Aneka kopi,
+                teh,
+                dan minuman pilihan.
+            </p>
+
+        </div>
+
+        <div class="feature-card">
+
+            <i class="fa-solid fa-tree"></i>
+
+            <h3>Outdoor Area</h3>
+
+            <p>
+                Suasana nyaman
+                dengan taman
+                dan pencahayaan hangat.
+            </p>
+
+        </div>
+
+        <div class="feature-card">
+
+            <i class="fa-solid fa-calendar-check"></i>
+
+            <h3>Booking Event</h3>
+
+            <p>
+                Arisan,
+                meeting,
+                ulang tahun,
+                gathering,
+                dan lainnya.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ==========================================
+MENU PAGE
+=========================================== -->
+
+<section id="menuPage"
+         class="page">
+
+    <div class="section-title">
+
+        <h2>
+
+            <i class="fa-solid fa-utensils"></i>
+
+            Digital Menu
+
+        </h2>
+
+        <p>
+
+            Pilih menu favorit Anda dan nikmati
+            cita rasa khas The Sultan Cafe.
+
+        </p>
+
+    </div>
+
+    <!-- SHOPPING CART -->
+
+    <div class="cart-bar">
+
+        <button
+            id="btnCart"
+            class="btn-cart">
+
+            <i class="fa-solid fa-cart-shopping"></i>
+
+            Keranjang
+
+            <span id="cartCount">0</span>
+
+        </button>
+
+    </div>
+
+    <!-- FILTER AREA -->
+
+    <div class="filter-wrapper">
+
+        <div class="search-box">
+
+            <i class="fa-solid fa-magnifying-glass"></i>
+
+            <input
+                type="text"
+                id="cariMenu"
+                placeholder="Cari nama menu...">
+
+        </div>
+
+        <select id="filterKategori">
+
+            <option value="">
+                Semua Kategori
+            </option>
+
+            <option value="Makanan">
+                Makanan
+            </option>
+
+            <option value="Minuman">
+                Minuman
+            </option>
+
+            <option value="Snack">
+                Snack
+            </option>
+
+            <option value="Dessert">
+                Dessert
+            </option>
+
+        </select>
+
+        <select id="filterStatus">
+
+            <option value="">
+                Semua Status
+            </option>
+
+            <option value="bestseller">
+                ⭐ Best Seller
+            </option>
+
+            <option value="promo">
+                🔥 Promo
+            </option>
+
+            <option value="baru">
+                🆕 Menu Baru
+            </option>
+
+        </select>
+
+    </div>
+
+    <!-- STATISTIK -->
+
+    <div class="statistik-menu">
+
+        <div class="stat-card">
+
+            <h3 id="jumlahMenu">
+
+                0
+
+            </h3>
+
+            <span>
+
+                Total Menu
+
+            </span>
+
+        </div>
+
+        <div class="stat-card">
+
+            <h3 id="jumlahKategori">
+
+                0
+
+            </h3>
+
+            <span>
+
+                Kategori
+
+            </span>
+
+        </div>
+
+        <div class="stat-card">
+
+            <h3 id="menuPromo">
+
+                0
+
+            </h3>
+
+            <span>
+
+                Promo
+
+            </span>
+
+        </div>
+
+        <div class="stat-card">
+
+            <h3 id="menuBestSeller">
+
+                0
+
+            </h3>
+
+            <span>
+
+                Best Seller
+
+            </span>
+
+        </div>
+
+    </div>
+
+    <!-- GRID MENU -->
+
+    <!-- LOADING MENU -->
+<div id="menuLoading" class="menu-loading">
+
+    <div class="menu-spinner"></div>
+
+    <p>Memuat menu...</p>
+
+</div>
+
+<div
+    id="listMenu"
+    class="menu-container">>
+
+    <!--
+        Semua menu akan muncul
+        otomatis dari script.js
+    -->
+
+</div>
+
+</section>
+
+<!-- ==========================================
+MODAL GAMBAR
+=========================================== -->
+
+<div id="imageModal"
+     class="image-modal">
+
+    <span
+        id="closeImage"
+        class="close-image">
+
+        &times;
+
+    </span>
+
+    <img
+        id="modalImage"
+        src=""
+        alt="Preview Menu">
+
+</div>
+
+<!-- ==========================================
+MODAL DESKRIPSI MENU
+=========================================== -->
+
+<div id="descriptionModal"
+     class="description-modal">
+
+    <div class="description-box">
+
+        <span
+            id="closeDescription"
+            class="close-description">
+
+            &times;
+
+        </span>
+
+        <h3 id="descriptionTitle">
+            Detail Menu
+        </h3>
+
+        <div id="descriptionPrice"
+             class="description-price">
+        </div>
+
+        <p id="descriptionText">
+        </p>
+
+    </div>
+
+</div>
+
+<!-- ==========================================
+ADMIN LOGIN
+=========================================== -->
+
+<section id="loginPage"
+         class="page">
+
+    <div class="login-card">
+
+        <h2>
+
+            Admin Login
+
+        </h2>
+
+    <p>
+
+        Masukkan username dan password
+        untuk mengelola menu.
+
+    </p>
+
+    <input
+        type="text"
+        id="usernameAdmin"
+        placeholder="Username">
+
+    <input
+        type="password"
+        id="passwordAdmin"
+        placeholder="Password">
+
+    <button
+        id="btnLogin"
+        class="btn-primary">
+
+        <i class="fa-solid fa-lock"></i>
+
+        Login
+
+    </button>
+
+    </div>
+
+</section>
+
+<!-- ==========================================
+POTONGAN 3 DIMULAI TEPAT DI BAWAH BARIS INI
+=========================================== -->
+
+<!-- ==========================================
+ADMIN DASHBOARD
+=========================================== -->
+
+<section id="adminPage"
+         class="page">
+
+    <div class="admin-header">
+
+        <h2>
+
+            <i class="fa-solid fa-user-gear"></i>
+
+            Dashboard Admin
+
+        </h2>
+
+        <div class="admin-action">
+
+            <button id="btnLogout"
+                    class="btn-danger">
+
+                <i class="fa-solid fa-right-from-bracket"></i>
+
+                Logout
+
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- DASHBOARD -->
+
+    <div class="dashboard-grid">
+
+        <div class="dashboard-card">
+
+            <i class="fa-solid fa-utensils"></i>
+
+            <h3 id="dashboardTotalMenu">
+
+                0
+
+            </h3>
+
+            <span>Total Menu</span>
+
+        </div>
+
+        <div class="dashboard-card">
+
+            <i class="fa-solid fa-layer-group"></i>
+
+            <h3 id="dashboardKategori">
+
+                0
+
+            </h3>
+
+            <span>Kategori</span>
+
+        </div>
+
+        <div class="dashboard-card">
+
+            <i class="fa-solid fa-fire"></i>
+
+            <h3 id="dashboardPromo">
+
+                0
+
+            </h3>
+
+            <span>Promo</span>
+
+        </div>
+
+        <div class="dashboard-card">
+
+            <i class="fa-solid fa-star"></i>
+
+            <h3 id="dashboardBestSeller">
+
+                0
+
+            </h3>
+
+            <span>Best Seller</span>
+
+        </div>
+
+    </div>
+
+    <!-- FORM MENU -->
+
+    <div class="form-card">
+
+        <h3>
+
+            Tambah / Edit Menu
+
+        </h3>
+
+        <input
+            type="hidden"
+            id="menuId">
+
+        <div class="form-group">
+
+            <label>
+
+                Nama Menu
+
+            </label>
+
+            <input
+                type="text"
+                id="namaMenu">
+
+        </div>
+
+        <div class="form-group">
+
+            <label>
+
+                Harga
+
+            </label>
+
+            <input
+                type="number"
+                id="hargaMenu">
+
+        </div>
+
+        <div class="form-group">
+
+            <label>
+
+                Kategori
+
+            </label>
+
+            <select id="kategoriMenu">
+
+                <option>Makanan</option>
+                <option>Minuman</option>
+                <option>Snack</option>
+                <option>Dessert</option>
+
+            </select>
+
+        </div>
+
+        <div class="form-group">
+
+            <label>
+
+                Deskripsi
+
+            </label>
+
+            <textarea
+                id="deskripsiMenu"
+                rows="4"></textarea>
+
+        </div>
+
+        <div class="form-group">
+
+            <label>
+
+                Upload Foto
+
+            </label>
+
+            <input
+                type="file"
+                id="fotoMenu"
+                accept="image/*">
+
+            <img
+                id="previewFoto"
+                class="preview-foto"
+                src=""
+                alt="Preview">
+
+        </div>
+
+        <!-- BADGE -->
+
+        <div class="badge-setting">
+
+            <label>
+
+                <input
+                    type="checkbox"
+                    id="statusBestSeller">
+
+                ⭐ Best Seller
+
+            </label>
+
+            <label>
+
+                <input
+                    type="checkbox"
+                    id="statusPromo">
+
+                🔥 Promo
+
+            </label>
+
+            <label>
+
+                <input
+                    type="checkbox"
+                    id="statusBaru">
+
+                🆕 Menu Baru
+
+            </label>
+
+        </div>
+
+        <!-- BUTTON -->
+
+        <div class="button-group">
+
+            <button
+                id="btnSimpan"
+                class="btn-primary">
+
+                <i class="fa-solid fa-floppy-disk"></i>
+
+                Simpan
+
+            </button>
+
+            <button
+                id="btnReset"
+                class="btn-warning">
+
+                <i class="fa-solid fa-rotate-left"></i>
+
+                Reset
+
+            </button>
+
+        </div>
+
+    </div>
+
+<!-- ==========================================
+MANAJEMEN KATEGORI
+=========================================== -->
+
+<div class="table-card">
+
+    <h3>
+
+        Manajemen Kategori
+
+    </h3>
+
+    <div class="form-group">
+
+        <label>Nama Kategori</label>
+
+        <input
+            type="text"
+            id="namaKategori"
+            placeholder="Masukkan nama kategori">
+
+    </div>
+
+    <div style="margin:15px 0;">
+
+        <button
+            id="btnTambahKategori"
+            class="btn-primary">
+
+            <i class="fa-solid fa-plus"></i>
+
+            Tambah Kategori
+
+        </button>
+
+    </div>
+
+    <div class="table-responsive">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>No</th>
+                    <th>Nama Kategori</th>
+                    <th>Aksi</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody id="categoryTable">
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+    <!-- TABEL MENU -->
+
+    <div class="table-card">
+
+        <h3>
+
+            Daftar Menu
+
+        </h3>
+
+        <div class="table-responsive">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>No</th>
+                        <th>Foto</th>
+                        <th>Nama</th>
+                        <th>Kategori</th>
+                        <th>Harga</th>
+                        <th>Status</th>
+                        <th>Aksi</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="adminTableMenu">
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ==========================================
+MANAJEMEN USER
+========================================== -->
+
+<div class="table-card">
+
+    <h3>
+
+        <i class="fa-solid fa-users"></i>
+
+        Manajemen User
+
+    </h3>
+
+    <div class="form-grid">
+
+        <div class="form-group">
+
+            <label>Username</label>
+
+            <input
+                type="text"
+                id="usernameUser"
+                placeholder="Masukkan username">
+
+        </div>
+
+        <div class="form-group">
+
+            <label>Password</label>
+
+            <input
+                type="password"
+                id="passwordUser"
+                placeholder="Masukkan password">
+
+        </div>
+
+        <div class="form-group">
+
+            <label>Nama</label>
+
+            <input
+                type="text"
+                id="namaUser"
+                placeholder="Nama lengkap">
+
+        </div>
+
+        <div class="form-group">
+
+            <label>Role</label>
+
+            <select id="roleUser">
+
+                <option value="admin">Admin</option>
+
+                <option value="kasir">Kasir</option>
+
+            </select>
+
+        </div>
+
+    </div>
+
+    <button
+        id="btnTambahUser"
+        class="btn-primary">
+
+        <i class="fa-solid fa-user-plus"></i>
+
+        Tambah User
+
+    </button>
+
+    <div class="table-responsive">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>No</th>
+                    <th>Username</th>
+                    <th>Nama</th>
+                    <th>Role</th>
+                    <th>Status</th>
+                    <th>Aksi</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody id="userTable">
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+<!-- ==========================================
+POTONGAN 4 DIMULAI DARI SINI
+=========================================== -->
+
+<!-- ==========================================
+FOOTER
+=========================================== -->
+
+<footer class="footer">
+
+    <div class="footer-container">
+
+        <div class="footer-logo">
+
+            <img
+                src="logo.png"
+                alt="The Sultan Cafe">
+
+            <h2>
+                THE SULTAN CAFE
+            </h2>
+
+            <p>
+                Palembang Tempo Doeloe
+            </p>
+
+        </div>
+
+        <div class="footer-info">
+
+            <h3>Alamat</h3>
+
+            <p>
+
+                The Sultan Cafe
+                Palembang
+
+            </p>
+
+            <h3>Jam Operasional</h3>
+
+            <p>
+
+                Setiap Hari
+                06.00 - 22.00 WIB
+
+            </p>
+
+        </div>
+
+        <div class="footer-contact">
+
+            <h3>Hubungi Kami</h3>
+
+            <a
+                id="footerWhatsapp"
+                href="#">
+
+                <i class="fa-brands fa-whatsapp"></i>
+
+                WhatsApp
+
+            </a>
+
+            <a
+                href="#">
+
+                <i class="fa-brands fa-instagram"></i>
+
+                Instagram
+
+            </a>
+
+            <a
+                href="#">
+
+                <i class="fa-solid fa-location-dot"></i>
+
+                Google Maps
+
+            </a>
+
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+
+        © 2026
+        The Sultan Cafe
+
+        <br>
+
+        Digital Menu Version 2.0
+
+    </div>
+
+</footer>
+
+<!-- ==========================================
+FLOATING BUTTON
+=========================================== -->
+
+<a
+    href="#"
+    id="floatingWA"
+    class="floating-wa">
+
+    <i class="fa-brands fa-whatsapp"></i>
+
+</a>
+
+<button
+    id="scrollTop"
+    class="scroll-top">
+
+    <i class="fa-solid fa-arrow-up"></i>
+
+</button>
+
+<!-- ==========================================
+NOTIFICATION
+=========================================== -->
+
+<div
+    id="toast"
+    class="toast">
+
+    <span id="toastMessage">
+
+    </span>
+
+</div>
+
+<!-- ==========================================
+LOADING MODAL
+=========================================== -->
+
+<div
+    id="loadingModal"
+    class="loading-modal">
+
+    <div class="loading-content">
+
+        <div class="spinner"></div>
+
+        <p>
+
+            Mohon tunggu...
+
+        </p>
+
+    </div>
+
+</div>
+
+<!-- ==========================================
+SHOPPING CART MODAL
+=========================================== -->
+
+<div id="cartModal"
+     class="cart-modal">
+
+    <div class="cart-box">
+
+        <div class="cart-header">
+
+            <h2>
+
+                <i class="fa-solid fa-cart-shopping"></i>
+
+                Keranjang Pesanan
+
+            </h2>
+
+            <button
+                id="closeCart"
+                class="cart-close">
+
+                <i class="fa-solid fa-xmark"></i>
+
+            </button>
+
+        </div>
+
+<!-- ==========================================
+INFORMASI PELANGGAN
+=========================================== -->
+
+<div class="customer-info">
+
+    <div class="customer-field">
+
+        <label for="customerName">
+            Nama Pelanggan
+        </label>
+
+        <input
+            type="text"
+            id="customerName"
+            placeholder="Nama">
+
+    </div>
+
+    <div class="customer-field">
+
+        <label for="tableNumber">
+            Nomor Meja
+        </label>
+
+        <input
+            type="text"
+            id="tableNumber"
+            placeholder="Meja">
+
+    </div>
+
+</div>
+
+        <div id="cartItems"
+             class="cart-items">
+
+            <!-- Item keranjang akan muncul di sini -->
+
+        </div>
+
+
+        <div class="cart-footer">
+
+            <div class="cart-total">
+
+                <span>Total</span>
+
+                <strong id="cartTotal">
+
+                    Rp0
+
+                </strong>
+
+            </div>
+
+        <div class="cart-footer-actions">  
+            <button
+                id="btnCancelCart"
+                class="btn-cancel-cart">
+                Batal
+
+            </button>
+            
+            <button
+                id="btnCheckout"
+                class="btn-checkout">
+
+                <i class="fa-brands fa-whatsapp"></i>
+
+                Pesan via WhatsApp
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ==========================================
+SCRIPT
+=========================================== -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+<script src="menu-service.js"></script>
+<script src="category-service.js"></script>
+<script src="storage-service.js"></script>
+<script src="user-service.js"></script>
+<script src="script.js"></script>
+
+</body>
+</html>
