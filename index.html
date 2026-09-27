@@ -574,246 +574,332 @@ ADMIN DASHBOARD
 
         </h2>
 
-        <div class="admin-action">
+<div class="admin-action">
 
-            <button id="btnLogout"
-                    class="btn-danger">
+    <button
+        id="btnOpenPOS"
+        class="btn-primary">
 
-                <i class="fa-solid fa-right-from-bracket"></i>
+        <i class="fa-solid fa-cash-register"></i>
 
-                Logout
+        POS Kasir
 
-            </button>
+    </button>
 
-        </div>
+    <button
+        id="btnLogout"
+        class="btn-danger">
+
+        <i class="fa-solid fa-right-from-bracket"></i>
+
+        Logout
+
+    </button>
+
+</div>
 
     </div>
 
     <!-- DASHBOARD -->
 
-    <div class="dashboard-grid">
+<!-- ==========================================
+TAB KELOMPOK ADMIN
+=========================================== -->
 
-        <div class="dashboard-card">
+<div class="admin-tabs">
 
-            <i class="fa-solid fa-utensils"></i>
+    <button
+        type="button"
+        id="tabMenu"
+        class="admin-tab active">
 
-            <h3 id="dashboardTotalMenu">
+        <i class="fa-solid fa-utensils"></i>
 
-                0
+        Menu
 
+    </button>
+
+
+    <button
+        type="button"
+        id="tabUser"
+        class="admin-tab">
+
+        <i class="fa-solid fa-users"></i>
+
+        User
+
+    </button>
+
+
+    <button
+        type="button"
+        id="tabPOS"
+        class="admin-tab">
+
+        <i class="fa-solid fa-cash-register"></i>
+
+        POS Kasir
+
+    </button>
+
+
+    <button
+        type="button"
+        id="tabTransaksi"
+        class="admin-tab">
+
+        <i class="fa-solid fa-receipt"></i>
+
+        Riwayat Transaksi
+
+    </button>
+
+
+    <button
+        type="button"
+        id="tabLaporan"
+        class="admin-tab">
+
+        <i class="fa-solid fa-chart-column"></i>
+
+        Laporan
+
+    </button>
+
+     <button
+        type="button"
+        id="tabKeuangan"
+        class="admin-tab">
+
+        <i class="fa-solid fa-wallet"></i>
+
+        Keuangan
+
+    </button>
+
+</div>    
+
+
+<!-- ==========================================
+KELOMPOK MENU ADMIN
+=========================================== -->
+
+<div id="adminMenuGroup">
+
+    <!-- ==========================================
+    SUBMENU MENU ADMIN
+    =========================================== -->
+
+    <div class="admin-menu-subtabs">
+
+        <button
+            type="button"
+            id="subtabKategori"
+            class="admin-menu-subtab active">
+
+            <i class="fa-solid fa-tags"></i>
+
+            Kategori Menu
+
+        </button>
+
+
+        <button
+            type="button"
+            id="subtabDaftarMenu"
+            class="admin-menu-subtab">
+
+            <i class="fa-solid fa-list"></i>
+
+            Daftar Menu
+
+        </button>
+
+
+        <button
+            type="button"
+            id="subtabEditMenu"
+            class="admin-menu-subtab">
+
+            <i class="fa-solid fa-pen-to-square"></i>
+
+            Edit Menu
+
+        </button>
+
+    </div>
+
+
+    <!-- ==========================================
+    FORM MENU / EDIT MENU
+    =========================================== -->
+
+    <div id="adminSubEditMenu">
+
+        <div class="form-card">
+
+            <h3>
+                Tambah / Edit Menu
             </h3>
 
-            <span>Total Menu</span>
+            <input
+                type="hidden"
+                id="menuId">
 
-        </div>
+            <div class="form-group">
 
-        <div class="dashboard-card">
+                <label>
+                    Nama Menu
+                </label>
 
-            <i class="fa-solid fa-layer-group"></i>
+                <input
+                    type="text"
+                    id="namaMenu">
 
-            <h3 id="dashboardKategori">
+            </div>
 
-                0
 
-            </h3>
+            <div class="form-group">
 
-            <span>Kategori</span>
+                <label>
+                    Harga
+                </label>
 
-        </div>
+                <input
+                    type="number"
+                    id="hargaMenu">
 
-        <div class="dashboard-card">
+            </div>
 
-            <i class="fa-solid fa-fire"></i>
 
-            <h3 id="dashboardPromo">
+            <div class="form-group">
 
-                0
+                <label>
+                    Kategori
+                </label>
 
-            </h3>
+                <select id="kategoriMenu">
 
-            <span>Promo</span>
+                    <option>Makanan</option>
+                    <option>Minuman</option>
+                    <option>Snack</option>
+                    <option>Dessert</option>
 
-        </div>
+                </select>
 
-        <div class="dashboard-card">
+            </div>
 
-            <i class="fa-solid fa-star"></i>
 
-            <h3 id="dashboardBestSeller">
+            <div class="form-group">
 
-                0
+                <label>
+                    Deskripsi
+                </label>
 
-            </h3>
+                <textarea
+                    id="deskripsiMenu"
+                    rows="4"></textarea>
 
-            <span>Best Seller</span>
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Upload Foto
+                </label>
+
+                <input
+                    type="file"
+                    id="fotoMenu"
+                    accept="image/*">
+
+                <img
+                    id="previewFoto"
+                    class="preview-foto"
+                    src=""
+                    alt="Preview">
+
+            </div>
+
+
+            <!-- BADGE -->
+
+            <div class="badge-setting">
+
+                <label>
+
+                    <input
+                        type="checkbox"
+                        id="statusBestSeller">
+
+                    ⭐ Best Seller
+
+                </label>
+
+
+                <label>
+
+                    <input
+                        type="checkbox"
+                        id="statusPromo">
+
+                    🔥 Promo
+
+                </label>
+
+
+                <label>
+
+                    <input
+                        type="checkbox"
+                        id="statusBaru">
+
+                    🆕 Menu Baru
+
+                </label>
+
+            </div>
+
+
+            <!-- BUTTON -->
+
+            <div class="button-group">
+
+                <button
+                    id="btnSimpan"
+                    class="btn-primary">
+
+                    <i class="fa-solid fa-floppy-disk"></i>
+
+                    Simpan
+
+                </button>
+
+
+                <button
+                    id="btnReset"
+                    class="btn-warning">
+
+                    <i class="fa-solid fa-rotate-left"></i>
+
+                    Reset
+
+                </button>
+
+            </div>
 
         </div>
 
     </div>
 
-    <!-- FORM MENU -->
-
-    <div class="form-card">
-
-        <h3>
-
-            Tambah / Edit Menu
-
-        </h3>
-
-        <input
-            type="hidden"
-            id="menuId">
-
-        <div class="form-group">
-
-            <label>
-
-                Nama Menu
-
-            </label>
-
-            <input
-                type="text"
-                id="namaMenu">
-
-        </div>
-
-        <div class="form-group">
-
-            <label>
-
-                Harga
-
-            </label>
-
-            <input
-                type="number"
-                id="hargaMenu">
-
-        </div>
-
-        <div class="form-group">
-
-            <label>
-
-                Kategori
-
-            </label>
-
-            <select id="kategoriMenu">
-
-                <option>Makanan</option>
-                <option>Minuman</option>
-                <option>Snack</option>
-                <option>Dessert</option>
-
-            </select>
-
-        </div>
-
-        <div class="form-group">
-
-            <label>
-
-                Deskripsi
-
-            </label>
-
-            <textarea
-                id="deskripsiMenu"
-                rows="4"></textarea>
-
-        </div>
-
-        <div class="form-group">
-
-            <label>
-
-                Upload Foto
-
-            </label>
-
-            <input
-                type="file"
-                id="fotoMenu"
-                accept="image/*">
-
-            <img
-                id="previewFoto"
-                class="preview-foto"
-                src=""
-                alt="Preview">
-
-        </div>
-
-        <!-- BADGE -->
-
-        <div class="badge-setting">
-
-            <label>
-
-                <input
-                    type="checkbox"
-                    id="statusBestSeller">
-
-                ⭐ Best Seller
-
-            </label>
-
-            <label>
-
-                <input
-                    type="checkbox"
-                    id="statusPromo">
-
-                🔥 Promo
-
-            </label>
-
-            <label>
-
-                <input
-                    type="checkbox"
-                    id="statusBaru">
-
-                🆕 Menu Baru
-
-            </label>
-
-        </div>
-
-        <!-- BUTTON -->
-
-        <div class="button-group">
-
-            <button
-                id="btnSimpan"
-                class="btn-primary">
-
-                <i class="fa-solid fa-floppy-disk"></i>
-
-                Simpan
-
-            </button>
-
-            <button
-                id="btnReset"
-                class="btn-warning">
-
-                <i class="fa-solid fa-rotate-left"></i>
-
-                Reset
-
-            </button>
-
-        </div>
-
-    </div>
 
 <!-- ==========================================
 MANAJEMEN KATEGORI
 =========================================== -->
+
+<div id="adminSubKategori">
 
 <div class="table-card">
 
@@ -873,8 +959,11 @@ MANAJEMEN KATEGORI
     </div>
 
 </div>
+</div>
 
     <!-- TABEL MENU -->
+
+    <div id="adminSubDaftarMenu">
 
     <div class="table-card">
 
@@ -914,10 +1003,15 @@ MANAJEMEN KATEGORI
 
     </div>
 
+</div>
+</div>
+</div>
 
 <!-- ==========================================
 MANAJEMEN USER
 ========================================== -->
+
+<div id="adminUserGroup">
 
 <div class="table-card">
 
@@ -1018,6 +1112,844 @@ MANAJEMEN USER
     </div>
 
 </div>
+</div>
+</div>
+
+
+<!-- ==========================================
+TOMBOL RIWAYAT TRANSAKSI
+=========================================== -->
+
+<div id="adminTransactionGroup">
+
+<div class="table-card">
+
+    <h3>
+
+        <i class="fa-solid fa-clock-rotate-left"></i>
+
+        Riwayat Transaksi
+
+    </h3>
+
+    <button
+        id="btnOpenTransactionHistory"
+        class="btn-primary">
+
+        <i class="fa-solid fa-receipt"></i>
+
+        Riwayat Transaksi
+
+    </button>
+
+</div>
+
+</div>
+
+<!-- ==========================================
+KELOMPOK LAPORAN ADMIN
+=========================================== -->
+
+<div id="adminReportGroup">
+
+    <div class="table-card">
+
+        <h3>
+            <i class="fa-solid fa-chart-column"></i>
+            Laporan Omzet Penjualan
+        </h3>
+
+
+        <!-- FILTER TANGGAL -->
+
+        <div class="form-grid">
+
+            <div class="form-group">
+
+                <label for="reportTanggalMulai">
+                    Tanggal Mulai
+                </label>
+
+                <input
+                    type="date"
+                    id="reportTanggalMulai">
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="reportTanggalSelesai">
+                    Tanggal Selesai
+                </label>
+
+                <input
+                    type="date"
+                    id="reportTanggalSelesai">
+
+            </div>
+
+        </div>
+
+
+        <button
+            type="button"
+            id="btnLoadReport"
+            class="btn-primary">
+
+            <i class="fa-solid fa-magnifying-glass"></i>
+            Tampilkan Laporan
+
+        </button>
+
+
+        <!-- STATUS -->
+
+        <div id="reportStatus"></div>
+
+
+        <!-- TOTAL OMZET -->
+
+        <div class="report-omzet">
+
+            <span>
+                Total Omzet
+            </span>
+
+            <strong id="reportTotalOmzet">
+                Rp 0
+            </strong>
+
+        </div>
+
+
+        <!-- RINGKASAN PEMBAYARAN -->
+
+        <div class="report-payment-grid">
+
+            <div class="report-payment-card">
+
+                <span>Cash</span>
+
+                <strong id="reportCash">
+                    Rp 0
+                </strong>
+
+            </div>
+
+
+            <div class="report-payment-card">
+
+                <span>QRIS</span>
+
+                <strong id="reportQRIS">
+                    Rp 0
+                </strong>
+
+            </div>
+
+
+            <div class="report-payment-card">
+
+                <span>Transfer</span>
+
+                <strong id="reportTransfer">
+                    Rp 0
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <!-- TABEL TRANSAKSI -->
+
+        <div class="table-responsive">
+
+            <table id="reportTransactionTable">
+
+                <thead>
+
+                    <tr>
+                        <th>No</th>
+                        <th>No. Transaksi</th>
+                        <th>Tanggal</th>
+                        <th>Kasir</th>
+                        <th>Pembayaran</th>
+                        <th>Total</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ==========================================
+KELOMPOK KEUANGAN ADMIN
+=========================================== -->
+
+<div id="adminFinanceGroup" style="display:none;">
+
+    <div class="table-card">
+
+        <h3>
+            <i class="fa-solid fa-wallet"></i>
+            Keuangan
+        </h3>
+
+<!-- ==========================================
+SUBTAB KEUANGAN
+=========================================== -->
+
+<div class="finance-subtabs">
+
+    <button
+        type="button"
+        id="financeTabRingkasan"
+        class="finance-subtab active">
+
+        <i class="fa-solid fa-chart-pie"></i>
+        Ringkasan
+
+    </button>
+
+
+    <button
+        type="button"
+        id="financeTabPemasukan"
+        class="finance-subtab">
+
+        <i class="fa-solid fa-arrow-down"></i>
+        Pemasukan
+
+    </button>
+
+
+    <button
+        type="button"
+        id="financeTabPengeluaran"
+        class="finance-subtab">
+
+        <i class="fa-solid fa-arrow-up"></i>
+        Pengeluaran
+
+    </button>
+
+
+    <button
+        type="button"
+        id="financeTabLaporan"
+        class="finance-subtab">
+
+        <i class="fa-solid fa-file-invoice"></i>
+        Laporan Detail
+
+    </button>
+
+</div>
+
+<!-- ==========================================
+TAB RINGKASAN
+=========================================== -->
+
+<div id="financeContentRingkasan">
+
+        <!-- PERIODE -->
+
+        <div class="form-grid">
+
+            <div class="form-group">
+
+                <label for="financeTanggalMulai">
+                    Tanggal Mulai
+                </label>
+
+                <input
+                    type="date"
+                    id="financeTanggalMulai">
+
+            </div>
+
+            <div class="form-group">
+
+                <label for="financeTanggalSelesai">
+                    Tanggal Selesai
+                </label>
+
+                <input
+                    type="date"
+                    id="financeTanggalSelesai">
+
+            </div>
+
+        </div>
+
+        <button
+            type="button"
+            id="btnLoadFinance"
+            class="btn-primary">
+
+            <i class="fa-solid fa-magnifying-glass"></i>
+            Tampilkan
+
+        </button>
+
+
+        <!-- RINGKASAN -->
+
+        <div class="finance-summary">
+
+            <div>
+                <span>Total Pemasukan</span>
+                <strong id="financeTotalPemasukan">
+                    Rp 0
+                </strong>
+            </div>
+
+            <div>
+                <span>Total Pengeluaran</span>
+                <strong id="financeTotalPengeluaran">
+                    Rp 0
+                </strong>
+            </div>
+
+            <div>
+                <span>Saldo</span>
+                <strong id="financeSaldo">
+                    Rp 0
+                </strong>
+            </div>
+
+        </div>
+
+
+</div>
+
+        <!-- ==========================================
+        FORM PEMASUKAN
+        =========================================== -->
+
+        <div id="financeContentPemasukan">
+
+        <div class="table-card">
+
+            <h3>
+                <i class="fa-solid fa-money-bill-transfer"></i>
+                Pemasukan
+            </h3>
+
+            <div class="form-group">
+
+                <label for="financeJenisPemasukan">
+                    Jenis Pemasukan
+                </label>
+
+                <select id="financeJenisPemasukan">
+
+                    <option value="UMUM">
+                        Pemasukan Umum
+                    </option>
+
+                    <option value="DP">
+                        DP Pesanan
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-grid">
+
+                <div class="form-group">
+
+                    <label for="financeTanggalPemasukan">
+                        Tanggal Pemasukan
+                    </label>
+
+                    <input
+                        type="date"
+                        id="financeTanggalPemasukan">
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="financeNominalPemasukan">
+                        Nominal
+                    </label>
+
+                    <input
+                        type="number"
+                        id="financeNominalPemasukan"
+                        min="0"
+                        placeholder="Masukkan nominal">
+
+                </div>
+
+            </div>
+
+
+            <!-- DATA KHUSUS DP -->
+
+            <div
+                id="financeDataDP"
+                style="display:none;">
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+
+                        <label for="financeTanggalPesanan">
+                            Tanggal Pesanan
+                        </label>
+
+                        <input
+                            type="date"
+                            id="financeTanggalPesanan">
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label for="financeNamaPemesan">
+                            Nama Pemesan
+                        </label>
+
+                        <input
+                            type="text"
+                            id="financeNamaPemesan"
+                            placeholder="Nama pemesan">
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="financeRoom">
+                        Room
+                    </label>
+
+                    <input
+                        type="text"
+                        id="financeRoom"
+                        placeholder="Nomor / nama room">
+
+                </div>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="financeKeteranganPemasukan">
+                    Keterangan
+                </label>
+
+                <textarea
+                    id="financeKeteranganPemasukan"
+                    rows="2"
+                    placeholder="Keterangan"></textarea>
+
+            </div>
+
+
+            <div class="finance-form-buttons">
+
+    <button
+        type="button"
+        id="btnSimpanPemasukan"
+        class="btn-primary">
+
+        <i class="fa-solid fa-floppy-disk"></i>
+        Simpan
+
+    </button>
+
+
+    <button
+        type="button"
+        id="btnCetakPemasukan"
+        class="btn-secondary">
+
+        <i class="fa-solid fa-print"></i>
+        Cetak
+
+    </button>
+
+
+    <button
+        type="button"
+        id="btnHapusPemasukan"
+        class="btn-secondary">
+
+        <i class="fa-solid fa-trash"></i>
+        Hapus
+
+    </button>
+
+</div>
+
+        </div>
+
+</div>
+
+<!-- ==========================================
+TAB PENGELUARAN
+FORM + SIMPAN + EDIT + HAPUS
+=========================================== -->
+
+<div id="financeContentPengeluaran"
+     style="display:none;">
+
+    <div class="table-card">
+
+        <h3>
+            <i class="fa-solid fa-arrow-up"></i>
+            Pengeluaran
+        </h3>
+
+
+        <!-- ==========================================
+        FORM PENGELUARAN
+        =========================================== -->
+
+        <div style="
+            display:grid;
+            gap:12px;
+            margin-top:15px;
+        ">
+
+            <!-- JENIS PENGELUARAN -->
+
+            <div>
+
+                <label for="financePengeluaranJenis">
+                    Jenis Pengeluaran
+                </label>
+
+                <select
+                    id="financePengeluaranJenis"
+                    class="form-control"
+                    style="width:100%;">
+
+                    <option value="Pengeluaran Umum">
+                        Pengeluaran Umum
+                    </option>
+
+                    <option value="Belanja">
+                        Belanja
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- TANGGAL -->
+
+            <div>
+
+                <label for="financePengeluaranTanggal">
+                    Tanggal
+                </label>
+
+                <input
+                    type="date"
+                    id="financePengeluaranTanggal"
+                    class="form-control"
+                    style="width:100%;">
+
+            </div>
+
+
+            <!-- KETERANGAN -->
+
+            <div>
+
+                <label for="financePengeluaranKeterangan">
+                    Keterangan
+                </label>
+
+                <input
+                    type="text"
+                    id="financePengeluaranKeterangan"
+                    class="form-control"
+                    placeholder="Contoh: Beli bahan baku"
+                    style="width:100%;">
+
+            </div>
+
+
+            <!-- NOMINAL -->
+
+            <div>
+
+                <label for="financePengeluaranNominal">
+                    Nominal
+                </label>
+
+                <input
+                    type="number"
+                    id="financePengeluaranNominal"
+                    class="form-control"
+                    placeholder="Masukkan nominal"
+                    min="0"
+                    step="1"
+                    style="width:100%;">
+
+            </div>
+
+
+            <!-- ID DATA YANG SEDANG DIEDIT -->
+
+            <input
+                type="hidden"
+                id="financePengeluaranId"
+                value="">
+
+
+            <!-- TOMBOL -->
+
+            <div style="
+                display:flex;
+                gap:10px;
+                flex-wrap:wrap;
+                margin-top:5px;
+            ">
+
+                <button
+                    type="button"
+                    id="btnSimpanPengeluaran"
+                    class="btn-primary">
+
+                    <i class="fa-solid fa-save"></i>
+                    Simpan
+
+                </button>
+
+
+                <button
+                    type="button"
+                    id="btnBatalEditPengeluaran"
+                    class="btn-secondary"
+                    style="display:none;">
+
+                    <i class="fa-solid fa-xmark"></i>
+                    Batal Edit
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- ==========================================
+        DAFTAR PENGELUARAN
+        =========================================== -->
+
+        <div style="
+            margin-top:25px;
+        ">
+
+            <h4>
+                <i class="fa-solid fa-list"></i>
+                Daftar Pengeluaran
+            </h4>
+
+
+            <div style="overflow-x:auto;">
+
+                <table class="data-table">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>No</th>
+
+                            <th>Tanggal</th>
+
+                            <th>Jenis</th>
+
+                            <th>Keterangan</th>
+
+                            <th style="text-align:right;">
+                                Nominal
+                            </th>
+
+                            <th style="text-align:center;">
+                                Aksi
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="financePengeluaranTableBody">
+
+                        <tr>
+
+                            <td
+                                colspan="6"
+                                style="text-align:center; color:#777;">
+
+                                Belum ada data pengeluaran.
+
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ==========================================
+TAB LAPORAN DETAIL
+=========================================== -->
+
+<div id="financeContentLaporan"
+     style="display:none;">
+
+    <div class="table-card">
+
+        <h3>
+            <i class="fa-solid fa-file-invoice"></i>
+            Laporan Detail Keuangan
+        </h3>
+
+        <p style="text-align:center; color:#777;">
+            Laporan detail akan dibuat pada tahap berikutnya.
+        </p>
+
+    </div>
+
+</div>
+
+        <!-- DETAIL -->
+
+        <button
+            type="button"
+            id="btnFinanceDetail"
+            class="btn-secondary">
+
+            <i class="fa-solid fa-list"></i>
+            Lihat Laporan Detail
+
+        </button>
+
+
+        <div
+            id="financeDetailGroup"
+            style="display:none;">
+
+            <!-- Laporan detail akan dibuat pada tahap berikutnya -->
+
+        </div>
+
+    </div>
+
+</div>
+
+
+</section>
+
+<!-- ==========================================
+HALAMAN RIWAYAT TRANSAKSI
+=========================================== -->
+
+<section
+    id="transactionHistoryPage"
+    class="page">
+
+    <div class="admin-header">
+
+        <h2>
+
+            <i class="fa-solid fa-clock-rotate-left"></i>
+
+            Riwayat Transaksi
+
+        </h2>
+
+        <div class="admin-action">
+
+            <button
+                id="btnBackToDashboard"
+                class="btn-primary">
+
+                <i class="fa-solid fa-arrow-left"></i>
+
+                Kembali
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <div class="table-card">
+
+        <h3>
+
+            Daftar Transaksi
+
+        </h3>
+
+        <div class="table-responsive">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>No</th>
+                        <th>No. Transaksi</th>
+                        <th>Tanggal</th>
+                        <th>Kasir</th>
+                        <th>Pelanggan</th>
+                        <th>Meja</th>
+                        <th>Total</th>
+                        <th>Pembayaran</th>
+                        <th>Aksi</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="transactionHistoryTable">
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
 
 </section>
 
@@ -1223,6 +2155,9 @@ SHOPPING CART MODAL
 
         </div>
 
+
+
+
 <!-- ==========================================
 INFORMASI PELANGGAN
 =========================================== -->
@@ -1302,6 +2237,114 @@ INFORMASI PELANGGAN
     </div>
 
 </div>
+</div>
+
+<!-- ==========================================
+PREVIEW NOTA TRANSAKSI
+=========================================== -->
+
+<div
+    id="transactionDetailModal"
+    style="
+        display:none;
+        position:fixed;
+        inset:0;
+        z-index:999999;
+        background:rgba(0,0,0,0.65);
+        align-items:center;
+        justify-content:center;
+        padding:20px;
+        box-sizing:border-box;
+    ">
+
+    <div
+        style="
+            width:350px;
+            max-width:100%;
+            max-height:90vh;
+            overflow-y:auto;
+            background:#ffffff;
+            color:#000000;
+            box-sizing:border-box;
+            border-radius:4px;
+            box-shadow:0 10px 30px rgba(0,0,0,0.35);
+        ">
+
+        <!-- ==========================================
+        ISI NOTA
+        =========================================== -->
+
+        <div
+            id="transactionDetailContent"
+            style="
+                width:100%;
+                padding:20px;
+                box-sizing:border-box;
+                background:#ffffff;
+                color:#000000;
+                font-family:Arial, sans-serif;
+                font-size:14px;
+                line-height:1.5;
+            ">
+
+        </div>
+
+
+        <!-- ==========================================
+        TOMBOL AKSI
+        =========================================== -->
+
+        <div
+            style="
+                display:flex;
+                gap:10px;
+                padding:15px;
+                background:#ffffff;
+                border-top:1px solid #dddddd;
+                box-sizing:border-box;
+            ">
+
+<button
+    id="btnCloseTransactionDetail"
+    type="button"
+    style="
+        flex:1;
+        display:block;
+        padding:10px 15px;
+        background:#eeeeee;
+        color:#000000;
+        border:1px solid #cccccc;
+        border-radius:5px;
+        cursor:pointer;
+        font-size:14px;
+        font-weight:600;
+    ">
+
+    Batal
+
+</button>
+
+
+            <button
+                id="btnPrintTransactionDetail"
+                type="button"
+                class="btn-primary"
+                style="
+                    flex:1;
+                ">
+
+                <i class="fa-solid fa-print"></i>
+
+                Cetak Nota
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
 
 <!-- ==========================================
 SCRIPT
@@ -1313,6 +2356,7 @@ SCRIPT
 <script src="category-service.js"></script>
 <script src="storage-service.js"></script>
 <script src="user-service.js"></script>
+<script src="admin/pos.js"></script>
 <script src="script.js"></script>
 
 </body>

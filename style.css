@@ -2816,3 +2816,372 @@ CATATAN MENU - RAPAT & LEBIH PANJANG
     border-top:1px solid #ddd;
 
 }
+
+/* ==========================================
+   TAB ADMIN
+========================================== */
+
+.admin-tabs {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 12px;
+    margin: 20px 0;
+}
+
+.admin-tab {
+    border: 1px solid #ddd;
+    background: #fff;
+    color: #333;
+    padding: 16px 10px;
+    min-height: 72px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+    box-shadow: 0 2px 7px rgba(0,0,0,.08);
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease,
+        background .2s ease,
+        color .2s ease;
+}
+
+.admin-tab i {
+    display: block;
+    font-size: 22px;
+    margin-bottom: 7px;
+}
+
+.admin-tab:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 12px rgba(0,0,0,.12);
+}
+
+.admin-tab.active {
+    background: #007bff;
+    color: #fff;
+    border-color: #007bff;
+    box-shadow: 0 5px 14px rgba(0,123,255,.25);
+}
+
+@media (max-width: 768px) {
+
+    .admin-tabs {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    .admin-tab {
+        min-height: 68px;
+        font-size: 14px;
+        padding: 13px 8px;
+    }
+
+    .admin-tab i {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .admin-tabs {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .admin-tab {
+        min-height: 64px;
+        font-size: 13px;
+    }
+}
+
+/* ==========================================
+   TAMPILAN EDIT MENU ADMIN
+========================================== */
+
+#adminSubEditMenu .form-card {
+    margin-top: 12px;
+    padding: 22px;
+    border-radius: 14px;
+}
+
+#adminSubEditMenu .form-card h3 {
+    margin: 0 0 20px;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+#adminSubEditMenu .form-group {
+    margin-bottom: 16px;
+}
+
+#adminSubEditMenu .form-group label {
+    display: block;
+    margin-bottom: 7px;
+    font-weight: 600;
+}
+
+#adminSubEditMenu input[type="text"],
+#adminSubEditMenu input[type="number"],
+#adminSubEditMenu input[type="file"],
+#adminSubEditMenu select,
+#adminSubEditMenu textarea {
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px 12px;
+}
+
+#adminSubEditMenu textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+#adminSubEditMenu .preview-foto {
+    display: block;
+    max-width: 180px;
+    max-height: 180px;
+    margin-top: 10px;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+#adminSubEditMenu .badge-setting {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin: 18px 0;
+}
+
+#adminSubEditMenu .badge-setting label {
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: #fff;
+}
+
+#adminSubEditMenu .button-group {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+@media (max-width: 768px) {
+
+    #adminSubEditMenu .badge-setting {
+        grid-template-columns: 1fr;
+    }
+
+    #adminSubEditMenu .button-group {
+        flex-direction: column;
+    }
+
+}
+
+/* SUBMENU MENU ADMIN */
+
+.admin-menu-subtabs {
+    display: flex;
+    gap: 8px;
+    margin: 0 0 15px;
+}
+
+.admin-menu-subtab {
+    flex: 1;
+    border: 1px solid #ddd;
+    background: #fff;
+    color: #444;
+    padding: 9px 8px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.admin-menu-subtab i {
+    margin-right: 5px;
+}
+
+.admin-menu-subtab.active {
+    background: #007bff;
+    color: #fff;
+    border-color: #007bff;
+}
+
+.report-omzet {
+    ...
+}
+
+.report-payment-grid {
+    ...
+}
+
+.report-payment-card {
+    ...
+}
+
+/* ==========================================
+   RINGKASAN LAPORAN - GAYA NOTA
+========================================== */
+
+.report-omzet {
+    margin: 15px auto 5px;
+    padding: 8px 12px;
+    max-width: 360px;
+    border: 1px solid #ddd;
+    border-radius: 6px 6px 0 0;
+    background: #fff;
+    text-align: left;
+}
+
+.report-omzet span {
+    font-size: 13px;
+    color: #555;
+}
+
+.report-omzet strong {
+    float: right;
+    font-size: 16px;
+    color: #222;
+}
+
+.report-payment-grid {
+    max-width: 360px;
+    margin: 0 auto 15px;
+    padding: 0 12px 8px;
+    border: 1px solid #ddd;
+    border-top: none;
+    border-radius: 0 0 6px 6px;
+    background: #fff;
+}
+
+.report-payment-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 0;
+    border-bottom: 1px dashed #ddd;
+}
+
+.report-payment-card:last-child {
+    border-bottom: none;
+}
+
+.report-payment-card span {
+    font-size: 13px;
+    color: #555;
+}
+
+.report-payment-card strong {
+    font-size: 14px;
+    color: #222;
+}
+
+
+/* ==========================================
+   RINGKASAN KEUANGAN
+   GAYA SEPERTI LAPORAN
+========================================== */
+
+.finance-summary {
+    max-width: 360px;
+    margin: 15px auto;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background: #fff;
+}
+
+.finance-summary > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 0;
+    border-bottom: 1px dashed #ddd;
+}
+
+.finance-summary > div:last-child {
+    border-bottom: none;
+}
+
+.finance-summary span {
+    font-size: 13px;
+    color: #555;
+}
+
+.finance-summary strong {
+    font-size: 14px;
+    color: #222;
+}
+
+/* ==========================================
+   SUBTAB KEUANGAN
+========================================== */
+
+.finance-subtabs {
+    display: flex;
+    gap: 8px;
+    margin: 0 0 15px;
+}
+
+.finance-subtab {
+    flex: 1;
+    border: 1px solid #ddd;
+    background: #fff;
+    color: #444;
+    padding: 9px 8px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.finance-subtab i {
+    margin-right: 5px;
+}
+
+.finance-subtab.active {
+    background: #007bff;
+    color: #fff;
+    border-color: #007bff;
+}
+
+@media (max-width: 600px) {
+
+    .finance-subtabs {
+        gap: 5px;
+    }
+
+    .finance-subtab {
+        padding: 8px 4px;
+        font-size: 11px;
+    }
+
+    .finance-subtab i {
+        margin-right: 2px;
+    }
+
+}
+
+/* ==========================================
+   TOMBOL FORM PEMASUKAN
+========================================== */
+
+.finance-form-buttons {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.finance-form-buttons button {
+    flex: 1;
+}
+
+@media (max-width: 600px) {
+
+    .finance-form-buttons {
+        gap: 6px;
+    }
+
+}
+
