@@ -736,7 +736,8 @@ SHOPPING CART BAR
 
     margin-bottom:20px;
 
-}
+    
+    }
 
 .btn-cart{
 
@@ -765,6 +766,12 @@ SHOPPING CART BAR
     cursor:pointer;
 
     transition:.3s;
+
+    position:fixed;
+    right:25px;
+    bottom:20px;
+    z-index:1000;
+
 
 }
 

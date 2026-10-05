@@ -418,8 +418,8 @@ function bukaLogin(){
             const namaMenu =
                 document.getElementById("namaMenu");
 
-            if(namaMenu){
-                namaMenu.focus();
+            if(tabMenu){
+                tabMenu.focus();
             }
 
         }, 300);
@@ -3386,105 +3386,281 @@ function hitungTotalKeranjang() {
 
 }
 
-/*==================================================
-CHECKOUT WHATSAPP
+/*===============================================
+===
+CHECKOUT PESANAN CUSTOMER
 ==================================================*/
 
-function checkoutWhatsApp() {
+async function checkoutWhatsApp() {
 
     if (shoppingCart.length === 0) {
-
         alert("Keranjang masih kosong.");
-
         return;
-
     }
-
 
     /* DATA PELANGGAN */
 
     const customerName =
-        $("customerName")?.value.trim() || "-";
+        $("customerName")?.value.trim() || "";
 
     const tableNumber =
-        $("tableNumber")?.value.trim() || "-";
+        $("tableNumber")?.value.trim() || "";
+
+    /* ==========================================
+       VALIDASI NAMA PELANGGAN
+       ========================================== */
+
+    if (!customerName) {
+        alert("Nama pelanggan wajib diisi.");
+
+        $("customerName")?.focus();
+
+        return;
+    }
+
+    /* ==========================================
+       VALIDASI MEJA / VIP ROOM
+       ========================================== */
+
+    if (!tableNumber) {
+        alert("Nomor meja / VIP Room wajib diisi.");
+
+        $("tableNumber")?.focus();
+
+        return;
+    }
 
     const orderNote =
         $("orderNote")?.value.trim() || "-";
 
 
-    const nomor = "6285150723357";
+    /* ==========================================
+       HITUNG TOTAL
+       ========================================== */
+
+    const total =
+        hitungTotalKeranjang();
 
 
-    /* PESAN WHATSAPP */
+    /* ==========================================
+       CEGAH DOUBLE CLICK
+       ========================================== */
 
-    let pesan =
-
-`Halo The Sultan Cafe,
-
-Saya ingin memesan:
-
-Nama Pelanggan: ${customerName}
-Nomor Meja: ${tableNumber}
-
-`;
+    if (btnCheckout) {
+        btnCheckout.disabled = true;
+    }
 
 
-    /* DAFTAR MENU */
+    try {
 
-    shoppingCart.forEach((item, index) => {
+        /* ==========================================
+           SIMPAN HEADER PESANAN CUSTOMER
+           ========================================== */
 
-        const subtotal =
-            item.harga * item.jumlah;
+        const {
+            data: pesanan,
+            error: pesananError
+        } = await supabaseClient
 
+            .from("pesanan_customer")
 
-        pesan +=
+            .insert([{
 
-`${index + 1}. ${item.nama}
-   ${formatRupiah(item.harga)} x ${item.jumlah} = ${formatRupiah(subtotal)}
-   Catatan: ${item.catatan || "-"}
-
-`;
-
-    });
-
-
-    /* TOTAL + CATATAN UMUM */
-
-    pesan +=
-
-`Total: ${formatRupiah(hitungTotalKeranjang())}
-
-Catatan Pesanan: ${orderNote}
-
-Terima kasih.`;
+                kode_pesanan:
+                    "ORD-" +
+                    Date.now(),
 
 
-    /* BUKA WHATSAPP */
+                nama_pelanggan:
+                    customerName,
 
-    window.open(
+                nomor_meja:
+                    tableNumber,
 
-        "https://wa.me/" +
-        nomor +
-        "?text=" +
-        encodeURIComponent(pesan),
+                status:
+                    "OPEN",
 
-        "_blank"
+                total:
+                    total
 
+            }])
+
+            .select()
+
+            .single();
+
+
+        /* ==========================================
+           CEK ERROR HEADER
+           ========================================== */
+
+        if (pesananError) {
+
+           console.error(
+            "❌ Gagal menyimpan pesanan customer:",
+            JSON.stringify(
+            pesananError,
+            null,
+            2
+        )
     );
 
+            alert(
+                "Pesanan gagal disimpan.\n\n" +
+                "Silakan coba lagi."
+            );
 
-    /* KOSONGKAN KERANJANG */
+            return;
+        }
 
-    shoppingCart.length = 0;
 
-    updateCartCount();
+        console.log(
+            "✅ Pesanan customer tersimpan:",
+            pesanan
+        );
 
-    renderKeranjang();
 
-    tutupKeranjang();
+        /* ==========================================
+           SIMPAN DETAIL PESANAN
+           ========================================== */
+
+        const detailPesanan =
+            shoppingCart.map(item => ({
+
+                pesanan_id:
+                    pesanan.id,
+
+                nama_menu:
+                    item.nama,
+
+                jumlah:
+                    item.jumlah,
+
+                harga:
+                    item.harga,
+
+                subtotal:
+                    item.harga * item.jumlah,
+
+                catatan:
+                    item.catatan || "-",
+
+                kelompok_order:
+                    1
+
+            }));
+
+
+        /* ==========================================
+           TAMBAHKAN CATATAN UMUM
+           PADA DETAIL PERTAMA
+           ========================================== */
+
+        if (
+            orderNote !== "-" &&
+            detailPesanan.length > 0
+        ) {
+
+            detailPesanan[0].catatan =
+                detailPesanan[0].catatan +
+                " | Catatan Pesanan: " +
+                orderNote;
+
+        }
+
+
+        /* ==========================================
+           INSERT DETAIL
+           ========================================== */
+
+        const {
+            error: detailError
+        } = await supabaseClient
+
+            .from("detail_pesanan_customer")
+
+            .insert(detailPesanan);
+
+
+        /* ==========================================
+           CEK ERROR DETAIL
+           ========================================== */
+
+        if (detailError) {
+
+            console.error(
+                "❌ Gagal menyimpan detail pesanan:",
+                detailError
+            );
+
+            alert(
+                "Detail pesanan gagal disimpan.\n\n" +
+                "Silakan hubungi kasir."
+            );
+
+            return;
+        }
+
+
+        console.log(
+            "✅ Detail pesanan customer tersimpan"
+        );
+
+
+        /* ==========================================
+           PESAN BERHASIL
+           ========================================== */
+
+        alert(
+            "Pesanan berhasil dikirim.\n\n" +
+            "Silakan tunggu pesanan diproses."
+        );
+
+
+        /* ==========================================
+           KOSONGKAN KERANJANG
+           ========================================== */
+
+        shoppingCart.length = 0;
+
+        updateCartCount();
+
+        renderKeranjang();
+
+        tutupKeranjang();
+
+
+        console.log(
+            "✅ Pesanan customer berhasil dikirim ke sistem POS"
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "❌ Error checkout customer:",
+            error
+        );
+
+        alert(
+            "Terjadi kesalahan saat mengirim pesanan.\n\n" +
+            "Silakan coba lagi."
+        );
+
+    } finally {
+
+        /* ==========================================
+           AKTIFKAN KEMBALI TOMBOL
+           ========================================== */
+
+        if (btnCheckout) {
+            btnCheckout.disabled = false;
+        }
+
+    }
 
 }
+
 
 /*==================================================
 UPDATE CART COUNT
