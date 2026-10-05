@@ -28,6 +28,12 @@ let selectedCategory = "SEMUA";
 
 let posCart = [];
 
+/* ==========================================
+   PESANAN CUSTOMER AKTIF
+   ========================================== */
+
+let pesananCustomerAktif = null;
+
 
 /* ==========================================
    CATATAN MENU AKTIF
@@ -265,6 +271,52 @@ const posTotal =
 
 
 /* ==========================================
+   ELEMENT PESANAN CUSTOMER
+   ========================================== */
+
+const customerOrderPanel =
+    document.getElementById("customerOrderPanel");
+
+
+
+const customerOrderContent =
+    document.getElementById("customerOrderContent");
+
+const btnAcceptCustomerOrder =
+    document.getElementById("btnAcceptCustomerOrder");
+
+console.log(
+    "🔎 CEK PANEL CUSTOMER:",
+    customerOrderPanel
+);
+
+console.log(
+    "🔎 CEK CONTENT CUSTOMER:",
+    customerOrderContent
+);
+
+console.log(
+    "🔎 CEK TOMBOL TERIMA:",
+    btnAcceptCustomerOrder
+);
+
+
+
+/* ==========================================
+   TOMBOL TERIMA PESANAN CUSTOMER
+   ========================================== */
+
+if (btnAcceptCustomerOrder) {
+
+    btnAcceptCustomerOrder.addEventListener(
+        "click",
+        terimaPesananCustomer
+    );
+
+}
+
+
+/* ==========================================
    ELEMENT MODAL CATATAN
    ========================================== */
 
@@ -410,6 +462,27 @@ async function loadPOSData() {
 
         updatePaymentDisplay();
 
+        
+        /* ==================================
+            BUKA PESANAN DARI URL
+        ================================== */
+
+        const params = new URLSearchParams(window.location.search);
+        const pesananIdDariUrl = params.get("pesanan_id");
+
+        if (pesananIdDariUrl) {
+
+            console.log(
+            "📂 Membuka pesanan dari URL:",
+            pesananIdDariUrl
+            );
+
+            await bukaPesananAktif(
+                Number(pesananIdDariUrl)
+            );
+
+        }    
+
 
     } catch (error) {
 
@@ -444,6 +517,7 @@ async function loadPOSData() {
     }
 
 }
+
 
 
 /* ==========================================
@@ -1933,6 +2007,505 @@ function formatBarisNota(kiri, kanan) {
 }
 
 /* ==========================================
+   SUARA NOTIFIKASI PESANAN BARU
+   ========================================== */
+
+let audioContextPesanan = null;
+let intervalSuaraPesanan = null;
+
+
+/* ==========================================
+   MULAI SUARA PESANAN BARU
+   ========================================== */
+
+function mulaiSuaraPesananBaru() {
+
+    try {
+
+        // Jika suara sudah berjalan, jangan membuat suara baru
+        if (intervalSuaraPesanan) {
+            return;
+        }
+
+       if (!audioContextPesanan) {
+        
+        audioContextPesanan =
+            new (window.AudioContext || window.webkitAudioContext)();
+
+        }        
+
+        if (audioContextPesanan.state === "suspended") {
+            audioContextPesanan.resume();
+        }
+
+
+        function bunyiSekali() {
+
+            const oscillator =
+                audioContextPesanan.createOscillator();
+
+            const gainNode =
+                audioContextPesanan.createGain();
+
+
+            oscillator.type = "sine";
+
+            oscillator.frequency.setValueAtTime(
+                880,
+                audioContextPesanan.currentTime
+            );
+
+            oscillator.frequency.setValueAtTime(
+                660,
+                audioContextPesanan.currentTime + 0.15
+            );
+
+
+            gainNode.gain.setValueAtTime(
+                0.25,
+                audioContextPesanan.currentTime
+            );
+
+            gainNode.gain.exponentialRampToValueAtTime(
+                0.01,
+                audioContextPesanan.currentTime + 0.5
+            );
+
+
+            oscillator.connect(gainNode);
+
+            gainNode.connect(
+                audioContextPesanan.destination
+            );
+
+
+            oscillator.start();
+
+            oscillator.stop(
+                audioContextPesanan.currentTime + 0.5
+            );
+
+        }
+
+
+        // Bunyi pertama
+        bunyiSekali();
+
+
+        // Ulangi setiap 1,5 detik
+        intervalSuaraPesanan =
+            setInterval(
+                bunyiSekali,
+                1500
+            );
+
+
+        console.log(
+            "🔊 Suara notifikasi pesanan DIMULAI"
+        );
+
+    } catch (error) {
+
+        console.error(
+            "❌ Gagal memulai suara pesanan:",
+            error
+        );
+
+    }
+
+}
+
+
+/* ==========================================
+   HENTIKAN SUARA PESANAN BARU
+   ========================================== */
+
+function hentikanSuaraPesananBaru() {
+
+    try {
+
+        if (intervalSuaraPesanan) {
+
+            clearInterval(
+                intervalSuaraPesanan
+            );
+
+            intervalSuaraPesanan = null;
+
+        }
+
+
+        if (audioContextPesanan) {
+
+            audioContextPesanan.close();
+
+            audioContextPesanan = null;
+
+        }
+
+
+        console.log(
+            "🔇 Suara notifikasi pesanan DIHENTIKAN"
+        );
+
+    } catch (error) {
+
+        console.error(
+            "❌ Gagal menghentikan suara pesanan:",
+            error
+        );
+
+    }
+
+}
+
+/* ==========================================
+   CETAK ORDER CUSTOMER - CLEANter
+   ========================================== */
+
+async function cetakOrderCustomer(pesanan, detail) {
+
+    try {
+
+        /* ==========================================
+           SIAPKAN ISI ORDER
+           ========================================== */
+
+        const content = [];
+
+
+        /* ==========================================
+           HEADER
+           ========================================== */
+
+        content.push({
+
+            type: "text",
+
+            text: "THE SULTAN CAFE",
+
+            align: "center",
+
+            bold: true,
+
+            size: "large"
+
+        });
+
+
+        content.push({
+
+            type: "text",
+
+            text: "Palembang Tempo Doeloe",
+
+            align: "center"
+
+        });
+
+
+        content.push({
+
+            type: "text",
+
+            text: "=== ORDER PESANAN ===",
+
+            align: "center",
+
+            bold: true
+
+        });
+
+
+        content.push({
+
+            type: "text",
+
+            text: "--------------------------------"
+
+        });
+
+
+        /* ==========================================
+           INFORMASI ORDER
+           ========================================== */
+
+        content.push({
+
+            type: "row",
+
+            left: "Order",
+
+            right:
+                pesanan.kode_pesanan
+
+        });
+
+
+        if (pesanan.nama_pelanggan) {
+
+            content.push({
+
+                type: "row",
+
+                left: "Pelanggan",
+
+                right:
+                    pesanan.nama_pelanggan
+
+            });
+
+        }
+
+
+        if (pesanan.nomor_meja) {
+
+            content.push({
+
+                type: "row",
+
+                left: "Meja",
+
+                right:
+                    pesanan.nomor_meja
+
+            });
+
+        }
+
+
+        content.push({
+
+            type: "text",
+
+            text: "--------------------------------"
+
+        });
+
+
+        /* ==========================================
+           DAFTAR MENU
+           ========================================== */
+
+        detail.forEach(
+
+            function(item) {
+
+                const namaItem =
+                    item.nama_menu +
+                    " x" +
+                    item.jumlah;
+
+
+                content.push({
+
+                    type: "text",
+
+                    text: namaItem,
+
+                    bold: true
+
+                });
+
+
+                /* ==========================================
+                   CATATAN MENU
+                   ========================================== */
+
+                if (
+                    item.catatan &&
+                    item.catatan !== "-"
+                ) {
+
+                    content.push({
+
+                        type: "text",
+
+                        text:
+                            "  Catatan: " +
+                            item.catatan
+
+                    });
+
+                }
+
+            }
+
+        );
+
+
+        /* ==========================================
+           TOTAL
+           ========================================== */
+
+        content.push({
+
+            type: "text",
+
+            text:
+                "--------------------------------"
+
+        });
+
+
+        content.push({
+
+            type: "text",
+
+            text:
+                formatBarisNota(
+
+                    "TOTAL",
+
+                    formatRupiah(
+                        pesanan.total
+                    )
+
+                ),
+
+            bold: true
+
+        });
+
+
+        /* ==========================================
+           FOOTER ORDER
+           ========================================== */
+
+        content.push({
+
+            type: "text",
+
+            text:
+                "--------------------------------"
+
+        });
+
+
+        content.push({
+
+            type: "text",
+
+            text: "SEGERA DIPROSES",
+
+            align: "center",
+
+            bold: true
+
+        });
+
+
+        content.push({
+
+            type: "feed",
+
+            lines: 3
+
+        });
+
+
+        /* ==========================================
+           KIRIM KE CLEANter
+           ========================================== */
+
+        const response =
+
+            await fetch(
+
+                "http://localhost:9100/print",
+
+                {
+
+                    method: "POST",
+
+                    headers: {
+
+                        "Content-Type":
+                            "application/json"
+
+                    },
+
+                    body:
+                        JSON.stringify({
+
+                            cut: true,
+
+                            content:
+                                content
+
+                        })
+
+                }
+
+            );
+
+
+        /* ==========================================
+           CEK HASIL PRINT
+           ========================================== */
+
+        if (!response.ok) {
+
+            const errorData =
+                await response.json()
+                    .catch(
+                        () => ({})
+                    );
+
+
+            throw new Error(
+
+                errorData.error ||
+                "Printer tidak dapat mencetak ORDER."
+
+            );
+
+        }
+
+
+        const result =
+            await response.json();
+
+
+        console.log(
+
+            "🧾 ORDER customer berhasil dikirim ke printer:",
+
+            result
+
+        );
+
+
+        return true;
+
+
+    } catch (error) {
+
+        console.error(
+
+            "❌ Gagal mencetak ORDER customer:",
+
+            error
+
+        );
+
+
+        alert(
+
+            "Pesanan sudah diterima,\n" +
+            "tetapi ORDER belum dapat dicetak.\n\n" +
+            "Periksa koneksi printer POS58B."
+
+        );
+
+
+        return false;
+
+    }
+
+}
+
+/* ==========================================
    CETAK STRUK 58MM - CLEANter
    ========================================== */
 
@@ -2236,7 +2809,7 @@ content.push({
 const response =
 
     await fetch(
-        "http://192.168.1.110:9100/print",
+        "http://localhost:9100/print",
         {
 
             method: "POST",
@@ -2327,7 +2900,7 @@ async function testPrintPOS58B() {
 
         const response =
             await fetch(
-                "http://192.168.1.110:9100/print",
+                "http://localhost:9100/print",
                 {
                     method: "POST",
 
@@ -2461,7 +3034,10 @@ async function simpanTransaksi() {
     const total =
         hitungTotalKeranjang();
 
-
+    const idPesananCustomer =
+    pesananCustomerId;    
+    
+        
     const jumlahDibayar =
         hasilPembayaran.jumlahDibayar;
 
@@ -2510,6 +3086,9 @@ async function simpanTransaksi() {
 
                 nomor_meja:
                     nomorMeja,
+
+                pesanan_customer_id:
+                    idPesananCustomer,   
 
                 total:
                     total,
@@ -2619,7 +3198,7 @@ async function simpanTransaksi() {
             nomorTransaksi
         );
 
-        /* ==========================================
+   /* ==========================================
    DATA UNTUK CETAK STRUK
    ========================================== */
 
@@ -2789,6 +3368,873 @@ function escapeAttribute(value) {
    ========================================== */
 
 loadPOSData();
+
+/* ==========================================
+   AMBIL DETAIL PESANAN CUSTOMER
+   ========================================== */
+
+async function ambilDetailPesananCustomer(
+    pesananId
+) {
+
+    try {
+
+        console.log(
+            "⏳ Mengambil detail pesanan customer:",
+            pesananId
+        );
+
+
+        const { data, error } =
+            await supabaseClient
+                .from("detail_pesanan_customer")
+                .select("*")
+                .eq("pesanan_id", pesananId)
+                .order("id", {
+                    ascending: true
+                });
+
+
+        if (error) {
+
+            console.error(
+                "❌ Gagal mengambil detail pesanan customer:",
+                error
+            );
+
+            return [];
+
+        }
+
+
+        console.log(
+            "✅ Detail pesanan customer:",
+            data
+        );
+
+
+        return data || [];
+
+
+    } catch (error) {
+
+        console.error(
+            "❌ Error detail pesanan customer:",
+            error
+        );
+
+        return [];
+
+    }
+
+}
+
+
+
+/* ==========================================
+   TAMPILKAN PESANAN CUSTOMER
+   ========================================== */
+
+function tampilkanPesananCustomer(
+    pesanan,
+    detail
+) {
+
+    console.log(
+    "🔎 CEK SAAT TAMPILKAN:",
+    customerOrderPanel,
+    customerOrderContent
+);
+
+    if (
+        !customerOrderPanel ||
+        !customerOrderContent
+    ) {
+        console.error(
+            "❌ Panel pesanan customer tidak ditemukan"
+        );
+        return;
+    }
+
+    let html = "";
+
+    /* ======================================
+       INFORMASI PESANAN
+       ====================================== */
+
+    html += `
+        <div class="customer-order-info">
+
+            <div>
+                <strong>Kode Pesanan</strong>
+                <span>
+                    ${pesanan.kode_pesanan || "-"}
+                </span>
+            </div>
+
+            <div>
+                <strong>Pelanggan</strong>
+                <span>
+                    ${pesanan.nama_pelanggan || "-"}
+                </span>
+            </div>
+
+            <div>
+                <strong>Meja</strong>
+                <span>
+                    ${pesanan.nomor_meja || "-"}
+                </span>
+            </div>
+
+        </div>
+    `;
+
+    /* ======================================
+       DAFTAR ITEM
+       ====================================== */
+
+    html += `
+        <div class="customer-order-items">
+    `;
+
+    if (
+        !detail ||
+        detail.length === 0
+    ) {
+
+        html += `
+            <div>
+                Tidak ada detail pesanan.
+            </div>
+        `;
+
+    } else {
+
+        detail.forEach(function(item) {
+
+            html += `
+                <div class="customer-order-item">
+
+                    <div>
+
+                        <strong>
+                            ${item.nama_menu || "-"}
+                        </strong>
+
+                        ${
+                            item.catatan
+                                ? `
+                                    <small>
+                                        Catatan:
+                                        ${item.catatan}
+                                    </small>
+                                  `
+                                : ""
+                        }
+
+                    </div>
+
+                    <span>
+                        ${item.jumlah || 0} x
+                        ${formatRupiah(
+                            item.harga || 0
+                        )}
+                    </span>
+
+                </div>
+            `;
+
+        });
+
+    }
+
+    html += `
+        </div>
+    `;
+
+    /* ======================================
+       TOTAL PESANAN
+       ====================================== */
+
+    html += `
+        <div class="customer-order-total">
+
+            <span>
+                TOTAL
+            </span>
+
+            <strong>
+                ${formatRupiah(
+                    pesanan.total || 0
+                )}
+            </strong>
+
+        </div>
+    `;
+
+    /* ======================================
+       TAMPILKAN KE PANEL
+       ====================================== */
+
+    customerOrderContent.innerHTML =
+        html;
+
+    customerOrderPanel.style.display =
+        "block";
+
+    console.log(
+        "📋 Pesanan customer ditampilkan"
+    );
+}
+
+/* ==========================================
+   MASUKKAN PESANAN CUSTOMER KE KERANJANG
+   ========================================== */
+
+function masukkanPesananCustomerKeKeranjang(
+    detail
+) {
+
+    if (
+        !detail ||
+        detail.length === 0
+    ) {
+
+        console.warn(
+            "⚠️ Detail pesanan customer kosong"
+        );
+
+        return false;
+
+    }
+
+    console.log(
+        "⏳ Memasukkan pesanan customer ke keranjang:",
+        detail
+    );
+
+    for (
+        const itemCustomer of detail
+    ) {
+
+        const namaCustomer =
+            String(
+                itemCustomer.nama_menu || ""
+            )
+                .trim()
+                .toLowerCase();
+
+        const menuPOS =
+            posMenus.find(function(menu) {
+
+                const namaPOS =
+                    String(
+                        menu.nama || ""
+                    )
+                        .trim()
+                        .toLowerCase();
+
+                return namaPOS === namaCustomer;
+
+            });
+
+        if (!menuPOS) {
+
+            console.error(
+                "❌ Menu customer tidak ditemukan di POS:",
+                itemCustomer.nama_menu
+            );
+
+            return false;
+
+        }
+
+        const existingItem =
+            posCart.find(function(item) {
+
+                return String(item.id)
+                    ===
+                    String(menuPOS.id);
+
+            });
+
+        if (existingItem) {
+
+            existingItem.jumlah +=
+                Number(
+                    itemCustomer.jumlah || 0
+                );
+
+            if (
+                itemCustomer.catatan
+            ) {
+
+                existingItem.catatan =
+                    itemCustomer.catatan;
+
+            }
+
+        } else {
+
+            posCart.push({
+
+                id:
+                    menuPOS.id,
+
+                nama:
+                    menuPOS.nama,
+
+                harga:
+                    Number(
+                        itemCustomer.harga ||
+                        menuPOS.harga ||
+                        0
+                    ),
+
+                jumlah:
+                    Number(
+                        itemCustomer.jumlah || 0
+                    ),
+
+                foto:
+                    menuPOS.foto || "",
+
+                catatan:
+                    itemCustomer.catatan || ""
+
+            });
+
+        }
+
+    }
+
+    renderPOSCart();
+
+    console.log(
+        "✅ Pesanan customer berhasil masuk ke keranjang:",
+        posCart
+    );
+
+    return true;
+}
+
+/* ==========================================
+   BUKA PESANAN AKTIF
+   ========================================== */
+
+async function bukaPesananAktif(
+    pesananId
+) {
+
+    console.log(
+        "⏳ Membuka pesanan aktif:",
+        pesananId
+    );
+
+
+    try {
+
+        /* ======================================
+           AMBIL DATA PESANAN
+           ====================================== */
+
+        const {
+            data: pesanan,
+            error: pesananError
+        } = await supabaseClient
+
+            .from("pesanan_customer")
+
+            .select("*")
+
+            .eq(
+                "id",
+                pesananId
+            )
+
+            .single();
+
+
+        if (pesananError) {
+
+            throw pesananError;
+
+        }
+
+
+        /* ======================================
+           AMBIL DETAIL PESANAN
+           ====================================== */
+
+        const detail =
+            await ambilDetailPesananCustomer(
+                pesananId
+            );
+
+
+        if (
+            !detail ||
+            detail.length === 0
+        ) {
+
+            alert(
+                "Detail pesanan kosong."
+            );
+
+            return;
+
+        }
+
+
+        /* ======================================
+           MASUKKAN KE KERANJANG
+           ====================================== */
+
+        const berhasil =
+            masukkanPesananCustomerKeKeranjang(
+                detail
+            );
+
+
+        if (!berhasil) {
+
+            alert(
+                "Pesanan gagal dibuka ke POS."
+            );
+
+            return;
+
+        }
+
+
+        /* ======================================
+           ISI DATA PELANGGAN
+           ====================================== */
+
+        if (posCustomerName) {
+
+            posCustomerName.value =
+                pesanan.nama_pelanggan || "";
+
+        }
+
+
+        if (posTableNumber) {
+
+            posTableNumber.value =
+                pesanan.nomor_meja || "";
+
+        }
+
+
+        /* ======================================
+           SIMPAN ID PESANAN CUSTOMER
+           ====================================== */
+
+        pesananCustomerId =
+            pesanan.id;
+
+
+        console.log(
+            "✅ Pesanan aktif berhasil dibuka:",
+            pesanan
+        );
+
+        console.log(
+            "🛒 Pesanan masuk ke keranjang POS:",
+            posCart
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "❌ Gagal membuka pesanan aktif:",
+            error
+        );
+
+        alert(
+            "Gagal membuka pesanan.\n\n" +
+            error.message
+        );
+
+    }
+
+}
+
+
+/* ==========================================
+   EVENT TOMBOL BUKA PESANAN AKTIF
+   ========================================== */
+
+const activeCustomerOrdersContent =
+    document.getElementById("activeCustomerOrdersContent");
+
+if (activeCustomerOrdersContent) {
+
+    activeCustomerOrdersContent.addEventListener(
+        "click",
+        async function (event) {
+
+            const tombol =
+                event.target.closest(
+                    ".btn-call-active-order"
+                );
+
+            if (!tombol) {
+
+                return;
+
+            }
+
+            const pesananId =
+                tombol.dataset.id;
+
+            if (!pesananId) {
+
+                console.warn(
+                    "⚠️ ID pesanan aktif tidak ditemukan"
+                );
+
+                return;
+
+            }
+
+            await bukaPesananAktif(
+                pesananId
+            );
+
+        }
+    );
+
+}
+
+/* ==========================================
+   TERIMA PESANAN CUSTOMER
+   ========================================== */
+
+async function terimaPesananCustomer() {
+
+    try {
+
+        if (!pesananCustomerAktif) {
+
+            console.warn(
+                "⚠️ Tidak ada pesanan customer aktif"
+            );
+
+            return;
+
+        }
+
+        const pesananId =
+            pesananCustomerAktif.id;
+
+        console.log(
+            "⏳ Menerima pesanan customer:",
+            pesananId
+        );
+
+
+        /* ==========================================
+           AMBIL DETAIL TERBARU
+           ========================================== */
+
+        const detail =
+            await ambilDetailPesananCustomer(
+                pesananId
+            );
+
+        if (
+            !detail ||
+            detail.length === 0
+        ) {
+
+            console.error(
+                "❌ Detail pesanan customer kosong"
+            );
+
+            return;
+
+        }
+
+
+        /* ==========================================
+           MASUKKAN KE KERANJANG POS
+           ========================================== */
+
+        const berhasil =
+            masukkanPesananCustomerKeKeranjang(
+                detail
+            );
+
+        if (!berhasil) {
+
+            console.error(
+                "❌ Pesanan customer gagal dimasukkan ke keranjang"
+            );
+
+            return;
+
+        }
+
+
+        /* ==========================================
+           ISI DATA PELANGGAN
+           ========================================== */
+
+        if (posCustomerName) {
+
+            posCustomerName.value =
+                pesananCustomerAktif.nama_pelanggan || "";
+
+        }
+
+
+        if (posTableNumber) {
+
+            posTableNumber.value =
+                pesananCustomerAktif.nomor_meja || "";
+
+        }
+
+
+        /* ==========================================
+           UPDATE STATUS
+           ========================================== */
+
+        const { data, error } =
+            await supabaseClient
+                .from("pesanan_customer")
+                .update({
+                    status: "DITERIMA"
+                })
+                .eq("id", pesananId)
+                .select()
+                .single();
+
+        if (error) {
+
+            console.error(
+                "❌ Gagal menerima pesanan customer:",
+                error
+            );
+
+            return;
+
+        }
+
+
+        console.log(
+            "✅ Pesanan customer diterima:",
+            data
+        );
+
+
+        /* ==========================================
+           HENTIKAN SUARA
+           ========================================== */
+
+        hentikanSuaraPesananBaru();
+
+
+        /* ==========================================
+           KOSONGKAN PESANAN AKTIF
+           ========================================== */
+
+        pesananCustomerAktif =
+            null;
+
+        pesananCustomerId =
+            pesananId;    
+
+
+        /* ==========================================
+           SEMBUNYIKAN PANEL
+           ========================================== */
+
+        if (customerOrderPanel) {
+
+            customerOrderPanel.style.display =
+                "none";
+
+        }
+
+
+        if (customerOrderContent) {
+
+            customerOrderContent.innerHTML =
+                "";
+
+        }
+
+
+        console.log(
+            "✅ Pesanan customer masuk ke keranjang POS"
+        );
+
+        console.log(
+            "✅ Panel pesanan customer dikosongkan"
+        );
+
+    } catch (error) {
+
+        console.error(
+            "❌ Error menerima pesanan customer:",
+            error
+        );
+
+    }
+
+}
+
+
+/* ==========================================
+   REALTIME PESANAN CUSTOMER
+   ========================================== */
+
+async function mulaiRealtimePesananCustomer() {
+
+    console.log(
+        "⏳ Menunggu pesanan customer..."
+    );
+
+
+    /* ==========================================
+       CEK PESANAN CUSTOMER OPEN SAAT POS DIBUKA
+       ========================================== */
+
+    const { data: pesananOpen, error: errorPesananOpen } =
+        await supabaseClient
+            .from("pesanan_customer")
+            .select("*")
+            .eq("status", "OPEN")
+            .order("created_at", {
+                ascending: false
+            })
+            .limit(1);
+
+
+    if (errorPesananOpen) {
+
+        console.error(
+            "❌ Gagal mengambil pesanan customer OPEN:",
+            errorPesananOpen
+        );
+
+    } else if (
+        pesananOpen &&
+        pesananOpen.length > 0
+    ) {
+
+        console.log(
+            "📋 Pesanan customer OPEN ditemukan:",
+            pesananOpen[0]
+        );
+
+
+        pesananCustomerAktif =
+            pesananOpen[0];
+
+
+        const detail =
+            await ambilDetailPesananCustomer(
+                pesananOpen[0].id
+            );
+
+
+        console.log(
+            "📋 Detail pesanan OPEN:",
+            detail
+        );
+
+
+        tampilkanPesananCustomer(
+            pesananOpen[0],
+            detail
+        );
+
+    } else {
+
+        console.log(
+            "ℹ️ Tidak ada pesanan customer OPEN."
+        );
+
+    }
+
+
+    /* ==========================================
+       REALTIME PESANAN CUSTOMER BARU
+       ========================================== */
+
+    const channel =
+        supabaseClient
+            .channel(
+                "pesanan-customer-pos"
+            )
+
+            .on(
+                "postgres_changes",
+                {
+                    event: "INSERT",
+                    schema: "public",
+                    table: "pesanan_customer"
+                },
+
+                async function(payload) {
+
+                    console.log(
+                        "🔔 PESANAN CUSTOMER BARU:",
+                        payload.new
+                    );
+
+
+                    pesananCustomerAktif =
+                        payload.new;
+
+
+                    mulaiSuaraPesananBaru();
+
+
+                    const detail =
+                        await ambilDetailPesananCustomer(
+                            payload.new.id
+                        );
+
+
+                    console.log(
+                        "📋 Detail pesanan diterima:",
+                        detail
+                    );
+
+
+                    tampilkanPesananCustomer(
+                        payload.new,
+                        detail
+                    );
+                    
+                    await cetakOrderCustomer(
+                        payload.new,
+                        detail
+                    );
+
+
+                }
+            )
+
+            .subscribe(function(status) {
+
+                console.log(
+                    "📡 Status Realtime Pesanan:",
+                    status
+                );
+
+            });
+
+}
+
+
+mulaiRealtimePesananCustomer();
 
 
 /* ==========================================

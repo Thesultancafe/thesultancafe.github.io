@@ -54,25 +54,27 @@ HEADER POS
     </div>
 
 
-    <div class="pos-header-actions">
+<div class="pos-header-actions">
 
-        <span id="posKasir">
+    <span id="posKasir">Admin</span>
 
-            Admin
+    <a
+        href="pesanan-aktif.html"
+        class="btn-secondary"
+        style="text-decoration:none; display:inline-flex; align-items:center; justify-content:center;"
+    >
+        <i class="fa-solid fa-list-check"></i>
+        Pesanan Aktif
+    </a>
 
-        </span>
+    <button
+        id="btnKembaliDashboard"
+        type="button"
+    >
+        Dashboard
+    </button>
 
-        <button
-            id="btnKembaliDashboard"
-            type="button">
-
-            <i class="fa-solid fa-arrow-left"></i>
-
-            Dashboard
-
-        </button>
-
-    </div>
+</div>
 
 </header>
 
@@ -197,6 +199,50 @@ MAIN POS
 
         </div>
 
+        <!-- ======================================
+        PESANAN CUSTOMER BARU
+        ======================================= -->
+
+        <div
+            id="customerOrderPanel"
+            class="customer-order-panel"
+            style="display: none;">
+
+            <div class="customer-order-header">
+
+                <h3>
+                    <i class="fa-solid fa-bell"></i>
+                    Pesanan Customer Baru
+                </h3>
+
+            </div>
+
+
+            <div
+                id="customerOrderContent"
+                class="customer-order-content">
+
+                <!-- Isi pesanan akan ditampilkan melalui JavaScript -->
+
+            </div>
+
+
+            <div class="customer-order-actions">
+
+                <button
+                    type="button"
+                    id="btnAcceptCustomerOrder"
+                    class="btn-primary">
+
+                    <i class="fa-solid fa-check"></i>
+
+                    OK / TERIMA
+
+                </button>
+
+            </div>
+
+        </div>
 
         <!-- ITEM KERANJANG -->
 
@@ -267,7 +313,7 @@ MAIN POS
 
                     <i class="fa-solid fa-money-bill-wave"></i>
 
-                    Cash
+                TUNAI
 
                 </button>
 

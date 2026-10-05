@@ -1548,3 +1548,538 @@ body {
 
 }
 ```
+
+/* ==========================================
+   SCROLL AREA KERANJANG POS
+   ========================================== */
+
+.pos-cart-area {
+
+    max-height:
+        calc(100vh - 30px);
+
+    overflow-y:
+        auto;
+
+    overflow-x:
+        hidden;
+
+}
+/* ==========================================
+   SCROLL AREA KERANJANG POS
+   ========================================== */
+
+.pos-cart-area {
+    max-height: calc(100vh - 90px);
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/* ==========================================
+   PESANAN AKTIF - COMPACT
+   ========================================== */
+
+.active-customer-orders-panel {
+
+    margin-bottom: 10px;
+
+    background: #fff;
+
+    border: 1px solid #ddd;
+
+    border-radius: 8px;
+
+    overflow: hidden;
+
+}
+
+
+.active-customer-orders-header {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 8px 10px;
+
+    background: #fafafa;
+
+    border-bottom: 1px solid #eee;
+
+}
+
+
+.active-customer-orders-header h3 {
+
+    font-size: 13px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+}
+
+
+.active-customer-orders-header .btn-secondary {
+
+    padding: 5px 8px;
+
+    font-size: 11px;
+
+}
+
+
+.active-customer-orders-content {
+
+    padding: 6px;
+
+}
+
+
+.active-customer-order-card {
+
+    padding: 7px 9px;
+
+    margin-bottom: 5px;
+
+    background: #fff;
+
+    border: 1px solid #e5e5e5;
+
+    border-radius: 6px;
+
+}
+
+
+.active-customer-order-card:last-child {
+
+    margin-bottom: 0;
+
+}
+
+
+.active-customer-order-info {
+
+    display: grid;
+
+    grid-template-columns:
+        90px
+        1fr
+        70px
+        100px
+        auto;
+
+    align-items: center;
+
+    gap: 7px;
+
+}
+
+
+.active-customer-order-info strong {
+
+    font-size: 12px;
+
+}
+
+
+.active-customer-order-info span {
+
+    font-size: 11px;
+
+    color: #666;
+
+}
+
+
+.active-customer-order-info span:last-of-type {
+
+    font-weight: 700;
+
+    color: #222;
+
+}
+
+
+.btn-call-active-order {
+
+    min-width: 58px;
+
+    padding: 5px 8px;
+
+    font-size: 11px;
+
+}
+
+
+.active-orders-empty {
+
+    min-height: 55px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 4px;
+
+    color: #888;
+
+}
+
+
+.active-orders-empty i {
+
+    font-size: 18px;
+
+}
+
+
+.active-orders-empty p {
+
+    font-size: 11px;
+
+}
+
+
+/* ==========================================
+   TABLET
+   ========================================== */
+
+@media (max-width: 850px) {
+
+    .active-customer-order-info {
+
+        grid-template-columns:
+            1fr
+            1fr
+            auto;
+
+        gap: 5px;
+
+    }
+
+
+    .active-customer-order-info strong {
+
+        grid-column: 1 / -1;
+
+    }
+
+
+    .btn-call-active-order {
+
+        width: auto;
+
+    }
+
+}
+
+
+/* ==========================================
+   MOBILE
+   ========================================== */
+
+@media (max-width: 600px) {
+
+    .active-customer-order-info {
+
+        grid-template-columns:
+            1fr
+            1fr;
+
+        gap: 5px;
+
+    }
+
+
+    .active-customer-order-info strong {
+
+        grid-column: 1 / -1;
+
+    }
+
+
+    .btn-call-active-order {
+
+        width: 100%;
+
+    }
+
+}
+
+/* =========================================================
+   RAPiKAN KERANJANG POS - GAYA NOTA
+   ========================================================= */
+
+/* AREA KERANJANG */
+.pos-cart-area {
+    background: #fff;
+}
+
+/* HEADER KERANJANG */
+.pos-cart-header {
+    padding: 8px 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.pos-cart-header h2,
+.pos-cart-header h3 {
+    margin: 0;
+    font-size: 16px;
+}
+
+/* INFORMASI CUSTOMER */
+.pos-customer {
+    padding: 7px 10px;
+    border-bottom: 1px dashed #bbb;
+    background: #fff;
+}
+
+.pos-customer label {
+    font-size: 11px;
+    margin-bottom: 2px;
+}
+
+.pos-customer input {
+    height: 30px;
+    padding: 4px 7px;
+    font-size: 12px;
+}
+
+/* LIST ITEM */
+.pos-cart-items {
+    padding: 0 10px;
+}
+
+/* ITEM SEPERTI NOTA */
+.pos-cart-item {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 8px;
+    padding: 8px 0;
+    border-bottom: 1px dashed #cfcfcf;
+    background: transparent;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+/* INFORMASI MENU */
+.pos-cart-item-info {
+    min-width: 0;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    column-gap: 10px;
+    row-gap: 2px;
+    align-items: center;
+}
+
+.pos-cart-item-name {
+    grid-column: 1 / -1;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.25;
+}
+
+.pos-cart-item-price {
+    grid-column: 1;
+    font-size: 11px;
+    color: #666;
+    line-height: 1.2;
+}
+
+.pos-cart-item-subtotal {
+    grid-column: 2;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    color: #222 !important;
+    text-align: right;
+    font-size: 13px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+/* CATATAN */
+.pos-cart-item-note {
+    margin-top: 3px !important;
+    font-size: 10px !important;
+    color: #666 !important;
+}
+
+/* TOMBOL ITEM */
+.pos-cart-item-actions {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 3px;
+    margin-top: 2px;
+}
+
+/* TOMBOL + - */
+.pos-cart-minus,
+.pos-cart-plus,
+.pos-cart-note,
+.pos-cart-remove {
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    padding: 0;
+    font-size: 11px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* JUMLAH */
+.pos-cart-qty {
+    min-width: 22px;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+/* RINGKASAN */
+.pos-cart-summary {
+    margin: 0 10px;
+    padding: 8px 0;
+    border-top: 1px solid #222;
+    border-bottom: 1px solid #222;
+}
+
+/* SEMUA NOMINAL RATA KANAN */
+.pos-cart-summary > div,
+.pos-cart-summary .summary-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 24px;
+}
+
+.pos-cart-summary span,
+.pos-cart-summary strong {
+    font-size: 12px;
+}
+
+.pos-cart-summary strong {
+    text-align: right;
+    white-space: nowrap;
+}
+
+.pos-cart-summary .total,
+.pos-cart-summary .grand-total {
+    font-size: 15px;
+    font-weight: 700;
+}
+
+/* =========================================================
+   PEMBAYARAN — SATU BARIS KECIL
+   ========================================================= */
+
+.pos-payment {
+    margin: 8px 10px 0;
+    padding: 6px 0;
+    border-top: 1px dashed #aaa;
+    border-bottom: 1px dashed #aaa;
+}
+
+/* LABEL / JUDUL PEMBAYARAN */
+.pos-payment h3,
+.pos-payment h4 {
+    margin: 0 0 5px;
+    font-size: 11px;
+}
+
+/* TOMBOL CASH / QRIS / TRANSFER SATU BARIS */
+.payment-methods {
+    display: flex;
+    gap: 4px;
+    width: 100%;
+}
+
+.payment-method {
+    flex: 1;
+    min-width: 0;
+    height: 28px;
+    padding: 3px 5px;
+    font-size: 11px;
+    line-height: 1;
+}
+
+/* INPUT PEMBAYARAN */
+.pos-payment input {
+    height: 30px;
+    padding: 4px 7px;
+    font-size: 12px;
+}
+
+/* NOMINAL PEMBAYARAN RATA KANAN */
+#posAmountPaid {
+    text-align: right;
+    font-weight: 600;
+}
+
+/* KEMBALIAN */
+#posChange {
+    text-align: right;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+/* AKSI BAWAH */
+.pos-actions {
+    margin-top: 8px;
+    padding: 0 10px 10px;
+    display: flex;
+    gap: 5px;
+}
+
+.pos-actions button {
+    min-height: 34px;
+    font-size: 12px;
+    padding: 5px 8px;
+}
+
+/* NOMINAL LAIN DI AREA POS */
+.pos-total,
+.pos-subtotal,
+#posSubtotal,
+#posTotal {
+    text-align: right;
+    white-space: nowrap;
+}
+
+/* =========================================================
+   MOBILE / LAYAR SEMPIT
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    .pos-cart-item {
+        padding: 7px 0;
+    }
+
+    .pos-cart-item-name {
+        font-size: 12px;
+    }
+
+    .pos-cart-item-price,
+    .pos-cart-item-subtotal {
+        font-size: 11px;
+    }
+
+    .payment-method {
+        font-size: 10px;
+        height: 27px;
+    }
+
+}
+
