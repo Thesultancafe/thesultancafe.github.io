@@ -3466,11 +3466,7 @@ async function checkoutWhatsApp() {
 
             .insert([{
 
-                kode_pesanan:
-                    "ORD-" +
-                    Date.now(),
-
-
+                
                 nama_pelanggan:
                     customerName,
 
