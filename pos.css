@@ -1,0 +1,2085 @@
+```css
+/* ==========================================
+   THE SULTAN CAFE
+   POS KASIR
+   ========================================== */
+
+
+/* ==========================================
+   RESET
+   ========================================== */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+body {
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    background: #f5f5f5;
+
+    color: #222;
+
+    min-height: 100vh;
+
+}
+
+
+/* ==========================================
+   HEADER POS
+   ========================================== */
+
+.pos-header {
+
+    position: sticky;
+
+    top: 0;
+
+    z-index: 1000;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 20px;
+
+    padding: 16px 24px;
+
+    background: #ffffff;
+
+    border-bottom: 1px solid #ddd;
+
+    box-shadow:
+        0 2px 8px rgba(0, 0, 0, 0.08);
+
+}
+
+
+.pos-brand {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+}
+
+
+.pos-brand-icon {
+
+    width: 48px;
+
+    height: 48px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 12px;
+
+    background: #222;
+
+    color: #fff;
+
+    font-size: 22px;
+
+}
+
+
+.pos-brand h1 {
+
+    font-size: 22px;
+
+    margin-bottom: 3px;
+
+}
+
+
+.pos-brand p {
+
+    font-size: 14px;
+
+    color: #777;
+
+}
+
+
+.pos-header-actions {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+}
+
+
+.pos-kasir-info {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    padding: 10px 14px;
+
+    border-radius: 8px;
+
+    background: #f3f3f3;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+}
+
+
+/* ==========================================
+   BUTTON GLOBAL
+   ========================================== */
+
+.btn-primary,
+.btn-secondary,
+.btn-danger {
+
+    border: none;
+
+    border-radius: 8px;
+
+    padding: 11px 16px;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    transition:
+        transform 0.15s ease,
+        opacity 0.15s ease;
+
+}
+
+
+.btn-primary {
+
+    background: #222;
+
+    color: #fff;
+
+}
+
+
+.btn-secondary {
+
+    background: #e9e9e9;
+
+    color: #222;
+
+}
+
+
+.btn-danger {
+
+    background: #d32f2f;
+
+    color: #fff;
+
+}
+
+
+.btn-primary:hover,
+.btn-secondary:hover,
+.btn-danger:hover {
+
+    opacity: 0.88;
+
+}
+
+
+.btn-primary:active,
+.btn-secondary:active,
+.btn-danger:active {
+
+    transform: scale(0.98);
+
+}
+
+
+/* ==========================================
+   MAIN CONTAINER
+   ========================================== */
+
+.pos-container {
+
+    width: 100%;
+
+    max-width: 1600px;
+
+    margin: 0 auto;
+
+    padding: 20px;
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        390px;
+
+    gap: 20px;
+
+    align-items: start;
+
+}
+
+
+/* ==========================================
+   MENU AREA
+   ========================================== */
+
+.pos-menu-area {
+
+    min-width: 0;
+
+}
+
+
+.pos-section-header {
+
+    margin-bottom: 14px;
+
+}
+
+
+.pos-section-header h2 {
+
+    font-size: 20px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+}
+
+
+/* ==========================================
+   CATEGORY
+   ========================================== */
+
+.pos-categories {
+
+    display: flex;
+
+    gap: 8px;
+
+    overflow-x: auto;
+
+    padding-bottom: 10px;
+
+    margin-bottom: 14px;
+
+    scrollbar-width: thin;
+
+}
+
+
+.pos-category-btn {
+
+    flex: 0 0 auto;
+
+    border: 1px solid #ddd;
+
+    background: #fff;
+
+    color: #333;
+
+    border-radius: 20px;
+
+    padding: 9px 16px;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: all 0.2s ease;
+
+}
+
+
+.pos-category-btn:hover {
+
+    background: #f0f0f0;
+
+}
+
+
+.pos-category-btn.active {
+
+    background: #222;
+
+    color: #fff;
+
+    border-color: #222;
+
+}
+
+
+/* ==========================================
+   SEARCH
+   ========================================== */
+
+.pos-search {
+
+    position: relative;
+
+    margin-bottom: 18px;
+
+}
+
+
+.pos-search i {
+
+    position: absolute;
+
+    left: 14px;
+
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    color: #888;
+
+    pointer-events: none;
+
+}
+
+
+.pos-search input {
+
+    width: 100%;
+
+    height: 46px;
+
+    border: 1px solid #ddd;
+
+    border-radius: 10px;
+
+    background: #fff;
+
+    padding:
+        0
+        14px
+        0
+        42px;
+
+    font-size: 15px;
+
+    outline: none;
+
+}
+
+
+.pos-search input:focus {
+
+    border-color: #999;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(0, 0, 0, 0.05);
+
+}
+
+
+/* ==========================================
+   MENU GRID
+   ========================================== */
+
+.pos-menu-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+    gap: 14px;
+
+}
+
+
+.pos-menu-card {
+
+    background: #fff;
+
+    border: 1px solid #e2e2e2;
+
+    border-radius: 12px;
+
+    overflow: hidden;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.18s ease,
+        box-shadow 0.18s ease;
+
+}
+
+
+.pos-menu-card:hover {
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 5px 18px
+        rgba(0, 0, 0, 0.09);
+
+}
+
+
+.pos-menu-image {
+
+    width: 100%;
+
+    height: 150px;
+
+    object-fit: cover;
+
+    display: block;
+
+    background: #eee;
+
+}
+
+
+.pos-menu-content {
+
+    padding: 12px;
+
+}
+
+
+.pos-menu-name {
+
+    font-size: 16px;
+
+    font-weight: 700;
+
+    line-height: 1.3;
+
+    margin-bottom: 7px;
+
+}
+
+
+.pos-menu-price {
+
+    font-size: 16px;
+
+    font-weight: 700;
+
+    color: #222;
+
+}
+
+
+.pos-menu-category {
+
+    margin-top: 5px;
+
+    font-size: 12px;
+
+    color: #888;
+
+}
+
+
+.pos-menu-add {
+
+    margin-top: 10px;
+
+    width: 100%;
+
+    border: none;
+
+    border-radius: 7px;
+
+    background: #222;
+
+    color: #fff;
+
+    padding: 9px;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+}
+
+
+.pos-menu-add:hover {
+
+    opacity: 0.88;
+
+}
+
+
+/* ==========================================
+   LOADING
+   ========================================== */
+
+.pos-loading {
+
+    grid-column: 1 / -1;
+
+    min-height: 180px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 10px;
+
+    color: #777;
+
+    background: #fff;
+
+    border-radius: 12px;
+
+    border: 1px solid #ddd;
+
+}
+
+
+.pos-empty-menu {
+
+    grid-column: 1 / -1;
+
+    min-height: 180px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    color: #777;
+
+    background: #fff;
+
+    border-radius: 12px;
+
+    border: 1px solid #ddd;
+
+}
+
+
+/* ==========================================
+   CART AREA
+   ========================================== */
+
+.pos-cart-area {
+
+    position: sticky;
+
+    top: 84px;
+
+    background: #fff;
+
+    border: 1px solid #ddd;
+
+    border-radius: 14px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 4px 15px
+        rgba(0, 0, 0, 0.06);
+
+}
+
+
+.pos-cart-header {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 16px;
+
+    border-bottom: 1px solid #eee;
+
+}
+
+
+.pos-cart-header h2 {
+
+    font-size: 19px;
+
+    margin-bottom: 4px;
+
+}
+
+
+.pos-cart-count {
+
+    font-size: 12px;
+
+    color: #777;
+
+}
+
+
+/* ==========================================
+   CUSTOMER
+   ========================================== */
+
+.pos-customer {
+
+    padding: 15px;
+
+    border-bottom: 1px solid #eee;
+
+}
+
+
+.pos-customer h3,
+.pos-payment h3 {
+
+    font-size: 15px;
+
+    margin-bottom: 12px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+}
+
+
+.pos-form-group {
+
+    margin-bottom: 11px;
+
+}
+
+
+.pos-form-group:last-child {
+
+    margin-bottom: 0;
+
+}
+
+
+.pos-form-group label {
+
+    display: block;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    margin-bottom: 5px;
+
+    color: #555;
+
+}
+
+
+.pos-form-group input,
+.pos-modal-content textarea {
+
+    width: 100%;
+
+    border: 1px solid #d7d7d7;
+
+    border-radius: 8px;
+
+    padding: 10px 11px;
+
+    font-size: 14px;
+
+    outline: none;
+
+    background: #fff;
+
+}
+
+
+.pos-form-group input:focus,
+.pos-modal-content textarea:focus {
+
+    border-color: #999;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(0, 0, 0, 0.04);
+
+}
+
+
+/* ==========================================
+   CART ITEMS
+   ========================================== */
+
+.pos-cart-items {
+
+    max-height: 390px;
+
+    overflow-y: auto;
+
+    padding: 8px 12px;
+
+}
+
+
+.pos-cart-empty {
+
+    min-height: 170px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+
+    color: #888;
+
+    gap: 7px;
+
+}
+
+
+.pos-cart-empty i {
+
+    font-size: 30px;
+
+    margin-bottom: 4px;
+
+}
+
+
+.pos-cart-empty p {
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+}
+
+
+.pos-cart-empty small {
+
+    font-size: 12px;
+
+}
+
+
+/* ==========================================
+   CART ITEM
+   ========================================== */
+
+.pos-cart-item {
+
+    padding: 11px 4px;
+
+    border-bottom: 1px solid #eee;
+
+}
+
+
+.pos-cart-item:last-child {
+
+    border-bottom: none;
+
+}
+
+
+.pos-cart-item-top {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: flex-start;
+
+    gap: 8px;
+
+}
+
+
+.pos-cart-item-name {
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    line-height: 1.3;
+
+}
+
+
+.pos-cart-item-price {
+
+    font-size: 12px;
+
+    color: #777;
+
+    margin-top: 3px;
+
+}
+
+
+.pos-cart-item-subtotal {
+
+    white-space: nowrap;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+}
+
+
+.pos-cart-item-bottom {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 8px;
+
+    margin-top: 8px;
+
+}
+
+
+.pos-quantity {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 5px;
+
+}
+
+
+.pos-quantity button {
+
+    width: 30px;
+
+    height: 30px;
+
+    border: 1px solid #ddd;
+
+    background: #f7f7f7;
+
+    border-radius: 6px;
+
+    cursor: pointer;
+
+    font-size: 15px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+}
+
+
+.pos-quantity button:hover {
+
+    background: #eaeaea;
+
+}
+
+
+.pos-quantity span {
+
+    min-width: 26px;
+
+    text-align: center;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+}
+
+
+.pos-cart-item-note {
+
+    margin-top: 7px;
+
+    font-size: 12px;
+
+    color: #777;
+
+    font-style: italic;
+
+    line-height: 1.35;
+
+}
+
+
+.pos-note-button {
+
+    border: none;
+
+    background: transparent;
+
+    color: #555;
+
+    font-size: 12px;
+
+    cursor: pointer;
+
+    padding: 4px;
+
+}
+
+
+.pos-note-button:hover {
+
+    text-decoration: underline;
+
+}
+
+
+/* ==========================================
+   SUMMARY
+   ========================================== */
+
+.pos-summary {
+
+    padding: 14px 15px;
+
+    border-top: 1px solid #eee;
+
+}
+
+
+.pos-summary-row {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    font-size: 14px;
+
+    margin-bottom: 10px;
+
+}
+
+
+.pos-summary-total {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding-top: 10px;
+
+    border-top: 1px dashed #ccc;
+
+    font-size: 17px;
+
+}
+
+
+.pos-summary-total strong {
+
+    font-size: 20px;
+
+}
+
+
+/* ==========================================
+   PAYMENT
+   ========================================== */
+
+.pos-payment {
+
+    padding: 15px;
+
+    border-top: 1px solid #eee;
+
+}
+
+
+.pos-payment-methods {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 7px;
+
+    margin-bottom: 14px;
+
+}
+
+
+.payment-method {
+
+    border: 1px solid #ddd;
+
+    background: #fff;
+
+    color: #333;
+
+    border-radius: 8px;
+
+    padding: 9px 5px;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 5px;
+
+}
+
+
+.payment-method i {
+
+    font-size: 16px;
+
+}
+
+
+.payment-method.active {
+
+    background: #222;
+
+    color: #fff;
+
+    border-color: #222;
+
+}
+
+
+.pos-change {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-top: 12px;
+
+    padding: 11px;
+
+    border-radius: 8px;
+
+    background: #f5f5f5;
+
+}
+
+
+.pos-change span {
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+}
+
+
+.pos-change strong {
+
+    font-size: 17px;
+
+}
+
+
+/* ==========================================
+   ACTIONS
+   ========================================== */
+
+.pos-actions {
+
+    display: grid;
+
+    grid-template-columns:
+        1fr
+        1.4fr;
+
+    gap: 8px;
+
+    padding: 15px;
+
+    border-top: 1px solid #eee;
+
+}
+
+
+.pos-actions button {
+
+    min-height: 44px;
+
+}
+
+
+/* ==========================================
+   MODAL CATATAN
+   ========================================== */
+
+.pos-modal {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 2000;
+
+    display: none;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 20px;
+
+    background:
+        rgba(0, 0, 0, 0.55);
+
+}
+
+
+.pos-modal.active {
+
+    display: flex;
+
+}
+
+
+.pos-modal-box {
+
+    width: 100%;
+
+    max-width: 500px;
+
+    background: #fff;
+
+    border-radius: 14px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 15px 45px
+        rgba(0, 0, 0, 0.2);
+
+}
+
+
+.pos-modal-header {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 15px 18px;
+
+    border-bottom: 1px solid #eee;
+
+}
+
+
+.pos-modal-header h3 {
+
+    font-size: 17px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+}
+
+
+.pos-modal-close {
+
+    width: 34px;
+
+    height: 34px;
+
+    border: none;
+
+    background: #f1f1f1;
+
+    border-radius: 50%;
+
+    cursor: pointer;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+}
+
+
+.pos-modal-content {
+
+    padding: 18px;
+
+}
+
+
+.pos-modal-content p {
+
+    font-size: 14px;
+
+    margin-bottom: 12px;
+
+}
+
+
+.pos-modal-content textarea {
+
+    min-height: 120px;
+
+    resize: vertical;
+
+    font-family: inherit;
+
+}
+
+
+.pos-modal-actions {
+
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 8px;
+
+    padding: 15px 18px;
+
+    border-top: 1px solid #eee;
+
+}
+
+
+/* ==========================================
+   TABLET
+   ========================================== */
+
+@media (max-width: 1100px) {
+
+    .pos-container {
+
+        grid-template-columns:
+            minmax(0, 1fr)
+            360px;
+
+        gap: 15px;
+
+        padding: 15px;
+
+    }
+
+
+    .pos-menu-grid {
+
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+    }
+
+
+    .pos-menu-image {
+
+        height: 145px;
+
+    }
+
+}
+
+
+/* ==========================================
+   TABLET PORTRAIT / MOBILE
+   ========================================== */
+
+@media (max-width: 850px) {
+
+    .pos-header {
+
+        padding: 12px 15px;
+
+    }
+
+
+    .pos-brand h1 {
+
+        font-size: 19px;
+
+    }
+
+
+    .pos-brand p {
+
+        font-size: 12px;
+
+    }
+
+
+    .pos-brand-icon {
+
+        width: 42px;
+
+        height: 42px;
+
+        font-size: 19px;
+
+    }
+
+
+    .pos-kasir-info {
+
+        display: none;
+
+    }
+
+
+    .pos-container {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .pos-cart-area {
+
+        position: relative;
+
+        top: auto;
+
+    }
+
+
+    .pos-cart-items {
+
+        max-height: 300px;
+
+    }
+
+}
+
+
+/* ==========================================
+   MOBILE
+   ========================================== */
+
+@media (max-width: 600px) {
+
+    .pos-header {
+
+        align-items: flex-start;
+
+    }
+
+
+    .pos-header-actions {
+
+        gap: 5px;
+
+    }
+
+
+    .pos-header-actions .btn-secondary {
+
+        padding: 9px 11px;
+
+        font-size: 12px;
+
+    }
+
+
+    .pos-container {
+
+        padding: 10px;
+
+        gap: 12px;
+
+    }
+
+
+    .pos-section-header h2 {
+
+        font-size: 18px;
+
+    }
+
+
+    .pos-menu-grid {
+
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+        gap: 8px;
+
+    }
+
+
+    .pos-menu-image {
+
+        height: 120px;
+
+    }
+
+
+    .pos-menu-content {
+
+        padding: 9px;
+
+    }
+
+
+    .pos-menu-name {
+
+        font-size: 13px;
+
+    }
+
+
+    .pos-menu-price {
+
+        font-size: 14px;
+
+    }
+
+
+    .pos-menu-add {
+
+        padding: 8px 5px;
+
+        font-size: 11px;
+
+    }
+
+
+    .pos-payment-methods {
+
+        gap: 5px;
+
+    }
+
+
+    .pos-actions {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .pos-modal {
+
+        padding: 12px;
+
+    }
+
+}
+```
+
+/* ==========================================
+   SCROLL AREA KERANJANG POS
+   ========================================== */
+
+.pos-cart-area {
+
+    max-height:
+        calc(100vh - 30px);
+
+    overflow-y:
+        auto;
+
+    overflow-x:
+        hidden;
+
+}
+/* ==========================================
+   SCROLL AREA KERANJANG POS
+   ========================================== */
+
+.pos-cart-area {
+    max-height: calc(100vh - 90px);
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/* ==========================================
+   PESANAN AKTIF - COMPACT
+   ========================================== */
+
+.active-customer-orders-panel {
+
+    margin-bottom: 10px;
+
+    background: #fff;
+
+    border: 1px solid #ddd;
+
+    border-radius: 8px;
+
+    overflow: hidden;
+
+}
+
+
+.active-customer-orders-header {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 8px 10px;
+
+    background: #fafafa;
+
+    border-bottom: 1px solid #eee;
+
+}
+
+
+.active-customer-orders-header h3 {
+
+    font-size: 13px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+}
+
+
+.active-customer-orders-header .btn-secondary {
+
+    padding: 5px 8px;
+
+    font-size: 11px;
+
+}
+
+
+.active-customer-orders-content {
+
+    padding: 6px;
+
+}
+
+
+.active-customer-order-card {
+
+    padding: 7px 9px;
+
+    margin-bottom: 5px;
+
+    background: #fff;
+
+    border: 1px solid #e5e5e5;
+
+    border-radius: 6px;
+
+}
+
+
+.active-customer-order-card:last-child {
+
+    margin-bottom: 0;
+
+}
+
+
+.active-customer-order-info {
+
+    display: grid;
+
+    grid-template-columns:
+        90px
+        1fr
+        70px
+        100px
+        auto;
+
+    align-items: center;
+
+    gap: 7px;
+
+}
+
+
+.active-customer-order-info strong {
+
+    font-size: 12px;
+
+}
+
+
+.active-customer-order-info span {
+
+    font-size: 11px;
+
+    color: #666;
+
+}
+
+
+.active-customer-order-info span:last-of-type {
+
+    font-weight: 700;
+
+    color: #222;
+
+}
+
+
+.btn-call-active-order {
+
+    min-width: 58px;
+
+    padding: 5px 8px;
+
+    font-size: 11px;
+
+}
+
+
+.active-orders-empty {
+
+    min-height: 55px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 4px;
+
+    color: #888;
+
+}
+
+
+.active-orders-empty i {
+
+    font-size: 18px;
+
+}
+
+
+.active-orders-empty p {
+
+    font-size: 11px;
+
+}
+
+
+/* ==========================================
+   TABLET
+   ========================================== */
+
+@media (max-width: 850px) {
+
+    .active-customer-order-info {
+
+        grid-template-columns:
+            1fr
+            1fr
+            auto;
+
+        gap: 5px;
+
+    }
+
+
+    .active-customer-order-info strong {
+
+        grid-column: 1 / -1;
+
+    }
+
+
+    .btn-call-active-order {
+
+        width: auto;
+
+    }
+
+}
+
+
+/* ==========================================
+   MOBILE
+   ========================================== */
+
+@media (max-width: 600px) {
+
+    .active-customer-order-info {
+
+        grid-template-columns:
+            1fr
+            1fr;
+
+        gap: 5px;
+
+    }
+
+
+    .active-customer-order-info strong {
+
+        grid-column: 1 / -1;
+
+    }
+
+
+    .btn-call-active-order {
+
+        width: 100%;
+
+    }
+
+}
+
+/* =========================================================
+   RAPiKAN KERANJANG POS - GAYA NOTA
+   ========================================================= */
+
+/* AREA KERANJANG */
+.pos-cart-area {
+    background: #fff;
+}
+
+/* HEADER KERANJANG */
+.pos-cart-header {
+    padding: 8px 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.pos-cart-header h2,
+.pos-cart-header h3 {
+    margin: 0;
+    font-size: 16px;
+}
+
+/* INFORMASI CUSTOMER */
+.pos-customer {
+    padding: 7px 10px;
+    border-bottom: 1px dashed #bbb;
+    background: #fff;
+}
+
+.pos-customer label {
+    font-size: 11px;
+    margin-bottom: 2px;
+}
+
+.pos-customer input {
+    height: 30px;
+    padding: 4px 7px;
+    font-size: 12px;
+}
+
+/* LIST ITEM */
+.pos-cart-items {
+    padding: 0 10px;
+}
+
+/* ITEM SEPERTI NOTA */
+.pos-cart-item {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 8px;
+    padding: 8px 0;
+    border-bottom: 1px dashed #cfcfcf;
+    background: transparent;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+/* INFORMASI MENU */
+.pos-cart-item-info {
+    min-width: 0;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    column-gap: 10px;
+    row-gap: 2px;
+    align-items: center;
+}
+
+.pos-cart-item-name {
+    grid-column: 1 / -1;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.25;
+}
+
+.pos-cart-item-price {
+    grid-column: 1;
+    font-size: 11px;
+    color: #666;
+    line-height: 1.2;
+}
+
+.pos-cart-item-subtotal {
+    grid-column: 2;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    color: #222 !important;
+    text-align: right;
+    font-size: 13px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+/* CATATAN */
+.pos-cart-item-note {
+    margin-top: 3px !important;
+    font-size: 10px !important;
+    color: #666 !important;
+}
+
+/* TOMBOL ITEM */
+.pos-cart-item-actions {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 3px;
+    margin-top: 2px;
+}
+
+/* TOMBOL + - */
+.pos-cart-minus,
+.pos-cart-plus,
+.pos-cart-note,
+.pos-cart-remove {
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    padding: 0;
+    font-size: 11px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* JUMLAH */
+.pos-cart-qty {
+    min-width: 22px;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+/* RINGKASAN */
+.pos-cart-summary {
+    margin: 0 10px;
+    padding: 8px 0;
+    border-top: 1px solid #222;
+    border-bottom: 1px solid #222;
+}
+
+/* SEMUA NOMINAL RATA KANAN */
+.pos-cart-summary > div,
+.pos-cart-summary .summary-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 24px;
+}
+
+.pos-cart-summary span,
+.pos-cart-summary strong {
+    font-size: 12px;
+}
+
+.pos-cart-summary strong {
+    text-align: right;
+    white-space: nowrap;
+}
+
+.pos-cart-summary .total,
+.pos-cart-summary .grand-total {
+    font-size: 15px;
+    font-weight: 700;
+}
+
+/* =========================================================
+   PEMBAYARAN — SATU BARIS KECIL
+   ========================================================= */
+
+.pos-payment {
+    margin: 8px 10px 0;
+    padding: 6px 0;
+    border-top: 1px dashed #aaa;
+    border-bottom: 1px dashed #aaa;
+}
+
+/* LABEL / JUDUL PEMBAYARAN */
+.pos-payment h3,
+.pos-payment h4 {
+    margin: 0 0 5px;
+    font-size: 11px;
+}
+
+/* TOMBOL CASH / QRIS / TRANSFER SATU BARIS */
+.payment-methods {
+    display: flex;
+    gap: 4px;
+    width: 100%;
+}
+
+.payment-method {
+    flex: 1;
+    min-width: 0;
+    height: 28px;
+    padding: 3px 5px;
+    font-size: 11px;
+    line-height: 1;
+}
+
+/* INPUT PEMBAYARAN */
+.pos-payment input {
+    height: 30px;
+    padding: 4px 7px;
+    font-size: 12px;
+}
+
+/* NOMINAL PEMBAYARAN RATA KANAN */
+#posAmountPaid {
+    text-align: right;
+    font-weight: 600;
+}
+
+/* KEMBALIAN */
+#posChange {
+    text-align: right;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+/* AKSI BAWAH */
+.pos-actions {
+    margin-top: 8px;
+    padding: 0 10px 10px;
+    display: flex;
+    gap: 5px;
+}
+
+.pos-actions button {
+    min-height: 34px;
+    font-size: 12px;
+    padding: 5px 8px;
+}
+
+/* NOMINAL LAIN DI AREA POS */
+.pos-total,
+.pos-subtotal,
+#posSubtotal,
+#posTotal {
+    text-align: right;
+    white-space: nowrap;
+}
+
+/* =========================================================
+   MOBILE / LAYAR SEMPIT
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    .pos-cart-item {
+        padding: 7px 0;
+    }
+
+    .pos-cart-item-name {
+        font-size: 12px;
+    }
+
+    .pos-cart-item-price,
+    .pos-cart-item-subtotal {
+        font-size: 11px;
+    }
+
+    .payment-method {
+        font-size: 10px;
+        height: 27px;
+    }
+
+}
+

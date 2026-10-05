@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>
+        POS Kasir | The Sultan Cafe
+    </title>
+
+    <!-- FONT AWESOME -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- POS CSS -->
+    <link
+        rel="stylesheet"
+        href="pos.css">
+
+</head>
+
+
+<body>
+
+
+<!-- ==========================================
+HEADER POS
+=========================================== -->
+
+<header class="pos-header">
+
+    <div class="pos-brand">
+
+        <i class="fa-solid fa-cash-register"></i>
+
+        <div>
+
+            <h1>
+                The Sultan Cafe
+            </h1>
+
+            <span>
+                POS Kasir
+            </span>
+
+        </div>
+
+    </div>
+
+
+<div class="pos-header-actions">
+
+    <span id="posKasir">Admin</span>
+
+    <a
+        href="pesanan-aktif.html"
+        class="btn-secondary"
+        style="text-decoration:none; display:inline-flex; align-items:center; justify-content:center;"
+    >
+        <i class="fa-solid fa-list-check"></i>
+        Pesanan Aktif
+    </a>
+
+    <button
+        id="btnKembaliDashboard"
+        type="button"
+    >
+        Dashboard
+    </button>
+
+</div>
+
+</header>
+
+
+
+<!-- ==========================================
+MAIN POS
+=========================================== -->
+
+<main class="pos-container">
+
+
+    <!-- ======================================
+    AREA MENU
+    ======================================= -->
+
+    <section class="pos-menu-area">
+
+
+        <!-- KATEGORI -->
+
+        <div class="pos-category">
+
+            <h2>
+                Kategori
+            </h2>
+
+            <div
+                id="posCategories"
+                class="category-buttons">
+
+                <!-- Kategori dari Supabase -->
+
+            </div>
+
+        </div>
+
+
+        <!-- DAFTAR MENU -->
+
+        <div class="pos-menu-header">
+
+            <h2>
+                Daftar Menu
+            </h2>
+
+            <input
+                type="search"
+                id="posSearch"
+                placeholder="Cari menu...">
+
+        </div>
+
+
+        <div
+            id="posMenuGrid"
+            class="pos-menu-grid">
+
+            <!-- Menu dari Supabase -->
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- ======================================
+    AREA KERANJANG
+    ======================================= -->
+
+    <aside class="pos-cart-area">
+
+
+        <div class="pos-cart-header">
+
+            <h2>
+
+                <i class="fa-solid fa-cart-shopping"></i>
+
+                Keranjang
+
+            </h2>
+
+            <span id="posCartCount">
+                0
+            </span>
+
+        </div>
+
+
+        <!-- DATA PELANGGAN -->
+
+        <div class="pos-customer">
+
+            <div class="pos-form-group">
+
+                <label for="posCustomerName">
+                    Nama Pelanggan
+                </label>
+
+                <input
+                    type="text"
+                    id="posCustomerName"
+                    placeholder="Opsional">
+
+            </div>
+
+
+            <div class="pos-form-group">
+
+                <label for="posTableNumber">
+                    Nomor Meja
+                </label>
+
+                <input
+                    type="text"
+                    id="posTableNumber"
+                    placeholder="Contoh: 05">
+
+            </div>
+
+        </div>
+
+        <!-- ======================================
+        PESANAN CUSTOMER BARU
+        ======================================= -->
+
+        <div
+            id="customerOrderPanel"
+            class="customer-order-panel"
+            style="display: none;">
+
+            <div class="customer-order-header">
+
+                <h3>
+                    <i class="fa-solid fa-bell"></i>
+                    Pesanan Customer Baru
+                </h3>
+
+            </div>
+
+
+            <div
+                id="customerOrderContent"
+                class="customer-order-content">
+
+                <!-- Isi pesanan akan ditampilkan melalui JavaScript -->
+
+            </div>
+
+
+            <div class="customer-order-actions">
+
+                <button
+                    type="button"
+                    id="btnAcceptCustomerOrder"
+                    class="btn-primary">
+
+                    <i class="fa-solid fa-check"></i>
+
+                    OK / TERIMA
+
+                </button>
+
+            </div>
+
+        </div>
+
+        <!-- ITEM KERANJANG -->
+
+        <div
+            id="posCartItems"
+            class="pos-cart-items">
+
+            <div class="pos-empty-cart">
+
+                <i class="fa-solid fa-cart-shopping"></i>
+
+                <p>
+                    Keranjang masih kosong
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- TOTAL -->
+
+        <div class="pos-cart-summary">
+
+            <div>
+
+                <span>
+                    Subtotal
+                </span>
+
+                <strong id="posSubtotal">
+                    Rp0
+                </strong>
+
+            </div>
+
+
+            <div class="pos-total">
+
+                <span>
+                    TOTAL
+                </span>
+
+                <strong id="posTotal">
+                    Rp0
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <!-- PEMBAYARAN -->
+
+        <div class="pos-payment">
+
+            <h3>
+                Pembayaran
+            </h3>
+
+
+            <div class="payment-methods">
+
+                <button
+                    type="button"
+                    class="payment-method active"
+                    data-method="CASH">
+
+                    <i class="fa-solid fa-money-bill-wave"></i>
+
+                TUNAI
+
+                </button>
+
+
+                <button
+                    type="button"
+                    class="payment-method"
+                    data-method="QRIS">
+
+                    <i class="fa-solid fa-qrcode"></i>
+
+                    QRIS
+
+                </button>
+
+
+                <button
+                    type="button"
+                    class="payment-method"
+                    data-method="TRANSFER">
+
+                    <i class="fa-solid fa-building-columns"></i>
+
+                    Transfer
+
+                </button>
+
+            </div>
+
+
+            <div class="pos-form-group">
+
+                <label for="posAmountPaid">
+                    Jumlah Dibayar
+                </label>
+
+                <input
+                    type="number"
+                    id="posAmountPaid"
+                    placeholder="0"
+                    min="0">
+
+            </div>
+
+
+            <div class="pos-change">
+
+                <span>
+                    Kembalian
+                </span>
+
+                <strong id="posChange">
+                    Rp0
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <!-- TOMBOL -->
+
+        <div class="pos-actions">
+
+            <button
+                id="btnNewTransaction"
+                type="button"
+                class="btn-secondary">
+
+                <i class="fa-solid fa-rotate-left"></i>
+
+                Transaksi Baru
+
+            </button>
+
+
+            <button
+                id="btnSaveTransaction"
+                type="button"
+                class="btn-primary">
+
+                <i class="fa-solid fa-check"></i>
+
+                Simpan Transaksi
+
+            </button>
+
+        </div>
+
+
+    </aside>
+
+</main>
+
+
+
+<!-- ==========================================
+MODAL CATATAN MENU
+=========================================== -->
+
+<div
+    id="posNoteModal"
+    class="pos-modal">
+
+    <div class="pos-modal-box">
+
+        <h3>
+            Catatan Menu
+        </h3>
+
+        <p id="posNoteMenuName">
+            Menu
+        </p>
+
+        <textarea
+            id="posItemNote"
+            rows="4"
+            placeholder="Contoh: tidak pedas, tanpa sambal...">
+        </textarea>
+
+
+        <div class="pos-modal-actions">
+
+            <button
+                id="btnCancelNote"
+                type="button"
+                class="btn-secondary">
+
+                Batal
+
+            </button>
+
+
+            <button
+                id="btnSaveNote"
+                type="button"
+                class="btn-primary">
+
+                Simpan
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- ==========================================
+SUPABASE LIBRARY
+=========================================== -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+<!-- ==========================================
+THE SULTAN CAFE SERVICES
+=========================================== -->
+
+<script src="../supabase.js"></script>
+
+<script src="../menu-service.js"></script>
+
+<script src="../category-service.js"></script>
+
+<script src="../user-service.js"></script>
+
+
+<!-- ==========================================
+POS JAVASCRIPT
+=========================================== -->
+
+<script src="pos.js"></script>
+
+</body>
+
+</html>
