@@ -841,35 +841,48 @@ function renderPOSMenus() {
 
 
                         ${
-                            deskripsi
-                                ? `
-                                    <div
-                                        style="
-                                            margin-top:5px;
-                                            font-size:12px;
-                                            color:#777;
-                                            line-height:1.3;
-                                        "
-                                    >
+    kategori
+        ? `
+            <div class="pos-menu-category">
 
-                                        ${deskripsi}
+                ${kategori}
 
-                                    </div>
-                                  `
-                                : ""
-                        }
+            </div>
+          `
+        : ""
+}
 
+        ${
+            menu.tersedia === false
 
-                        <button
-                            type="button"
-                            class="pos-menu-add"
-                            data-menu-id="${menuId}">
+            ? `
 
-                            <i class="fa-solid fa-plus"></i>
+                <button
+                    type="button"
+                    class="pos-menu-add"
+                    disabled>
 
-                            Tambah
+                    🔴 Menu Kosong
 
-                        </button>
+                </button>
+
+                `
+
+            : `
+
+            <button
+                type="button"
+                class="pos-menu-add"
+                data-menu-id="${menuId}">
+
+                <i class="fa-solid fa-plus"></i>
+
+                Tambah
+
+            </button>
+
+          `
+}
 
                     </div>
 
@@ -946,6 +959,18 @@ function renderPOSMenus() {
    ========================================== */
 
 function tambahKeKeranjang(menu) {
+
+     if (menu.tersedia === false) {
+
+        console.log(
+            "⚠️ Menu sedang kosong:",
+            menu.nama
+        );
+
+        return;
+
+    }
+
 
     const menuId =
         String(menu.id);

@@ -35,6 +35,62 @@
     <link rel="stylesheet"
           href="style.css">
 
+
+
+<style>
+
+/* TAB KATEGORI CUSTOMER */
+
+.customer-category-tabs {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 0;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding: 6px 2px 0;
+    margin: 6px 0 10px;
+    border-bottom: 1px solid #c8d0ca;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+}
+
+.customer-category-tabs::-webkit-scrollbar {
+    display: none;
+}
+
+.customer-category-tab {
+    flex: 0 0 auto;
+    border: 1px solid #c8d0ca;
+    border-bottom: 0;
+    border-radius: 5px 5px 0 0;
+    background: #e7ebe8;
+    color: #39443d;
+    padding: 7px 9px;
+    margin-right: 2px;
+    font-size: 11px;
+    line-height: 1.2;
+    cursor: pointer;
+}
+
+.customer-category-tab.active {
+    position: relative;
+    background: #fff;
+    color: #217346;
+    font-weight: 600;
+    border-top: 3px solid #217346;
+    padding-top: 5px;
+    margin-bottom: -1px;
+}
+
+
+/* Dropdown kategori digantikan oleh tab */
+#filterKategori {
+    display: none;
+}
+</style>
+
+
+
 </head>
 
 <body>
@@ -431,7 +487,7 @@ MENU PAGE
 
     <!-- GRID MENU -->
 
-    <!-- LOADING MENU -->
+<!-- LOADING MENU -->
 <div id="menuLoading" class="menu-loading">
 
     <div class="menu-spinner"></div>
@@ -440,18 +496,24 @@ MENU PAGE
 
 </div>
 
+<!-- TAB KATEGORI CUSTOMER -->
+<div
+    id="customerCategoryTabs"
+    class="customer-category-tabs">
+
+</div>
+
+<!-- DAFTAR MENU -->
 <div
     id="listMenu"
-    class="menu-container">>
+    class="menu-container">
 
-    <!--
-        Semua menu akan muncul
-        otomatis dari script.js
-    -->
+    <!-- Semua menu dirender otomatis dari script.js -->
 
 </div>
 
 </section>
+
 
 <!-- ==========================================
 MODAL GAMBAR
@@ -803,6 +865,25 @@ KELOMPOK MENU ADMIN
 
             </div>
 
+        <div class="form-group">
+
+        <label>
+            Status Ketersediaan
+        </label>
+
+        <select id="tersediaMenu">
+
+            <option value="true">
+                🟢 Available
+            </option>
+
+            <option value="false">
+                🔴 Menu Kosong
+            </option>
+
+        </select>
+
+        </div>
 
             <div class="form-group">
 

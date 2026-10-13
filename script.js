@@ -175,7 +175,8 @@ async function loadData() {
             foto: item.foto,
             bestSeller: item.best_seller,
             promo: item.promo,
-            baru: item.baru
+            baru: item.baru,
+            tersedia: item.tersedia
         }));
 
         console.log("✅ Data menu berhasil dimuat dari Supabase");
@@ -408,12 +409,10 @@ function bukaLogin(){
 
         setTimeout(function(){
 
-            if(adminPage){
-                adminPage.scrollIntoView({
-                    behavior: "smooth",
-                    block: "start"
-                });
-            }
+            window.scrollTo({
+                top: 500,
+                behavior: "smooth"
+            });
 
             const namaMenu =
                 document.getElementById("namaMenu");
@@ -422,12 +421,11 @@ function bukaLogin(){
                 tabMenu.focus();
             }
 
-        }, 300);
+        }, 1000);
 
         return;
 
     }
-
 
     showPage(loginPage);
 
@@ -439,6 +437,7 @@ function bukaLogin(){
             loginPage.scrollIntoView({
                 behavior: "smooth",
                 block: "start"
+                
             });
         }
 
@@ -1962,7 +1961,9 @@ Menyimpan...
 
             promo: statusPromo.checked,
 
-            baru: statusBaru.checked
+            baru: statusBaru.checked,
+
+            tersedia: tersediaMenu.value === "true"
 
         };
 
@@ -1994,7 +1995,8 @@ Menyimpan...
 
                 promo: data.promo,
 
-                baru: data.baru
+                baru: data.baru,
+                tersedia: data.tersedia
 
             });
 
@@ -2154,9 +2156,34 @@ function editMenu(id){
 
     statusBaru.checked = data.baru;
 
+    tersediaMenu.value = data.tersedia === false
+        ? "false"
+        : "true";
+
     btnSimpan.textContent = "Update Menu";
 
     showPage(adminPage);
+
+    // Buka langsung subtab Edit Menu
+        if (subtabEditMenu) {
+        subtabEditMenu.click();
+        }
+
+    // Arahkan halaman ke kolom Nama Menu
+        setTimeout(function () {
+
+        if (namaMenu) {
+
+            namaMenu.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+
+            namaMenu.focus();
+
+        }
+
+    }, 100);
 
 }
 
@@ -2328,6 +2355,9 @@ async function loadCategories() {
     try {
 
         const categories = await getCategories();
+
+        renderCustomerCategoryTabs(categories);
+
         console.log("Kategori dari Supabase:", categories);
 
         /* DROPDOWN FORM MENU */
@@ -2379,6 +2409,76 @@ async function loadCategories() {
     }
 
 }
+
+
+/*==================================================
+TAB KATEGORI CUSTOMER
+==================================================*/
+window.customerSelectedCategory = "Semua";
+
+function renderCustomerCategoryTabs(categories) {
+    const container = document.getElementById("customerCategoryTabs");
+
+    if (!container) return;
+
+    container.innerHTML = "";
+
+
+const urutanPrioritas = [
+    "Paket Nasi Special",
+    "Makanan",
+    "Snack",
+    "Minuman",
+    "Sarapan Pagi"
+];
+
+const kategoriUrut = [...(categories || [])].sort((a, b) => {
+    const indexA = urutanPrioritas.indexOf(a.nama);
+    const indexB = urutanPrioritas.indexOf(b.nama);
+
+    const posisiA = indexA === -1 ? 999 : indexA;
+    const posisiB = indexB === -1 ? 999 : indexB;
+
+    return posisiA - posisiB;
+});
+
+const daftarKategori = [
+    { nama: "Semua" },
+    ...kategoriUrut
+];
+
+
+    daftarKategori.forEach(category => {
+        const nama = category.nama;
+
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "customer-category-tab";
+        button.textContent = nama;
+        button.dataset.category = nama;
+
+        if (nama === window.customerSelectedCategory) {
+            button.classList.add("active");
+        }
+
+        button.addEventListener("click", function () {
+            window.customerSelectedCategory = nama;
+
+            container.querySelectorAll(".customer-category-tab")
+                .forEach(tab => {
+                    tab.classList.toggle(
+                        "active",
+                        tab.dataset.category === nama
+                    );
+                });
+
+            renderMenu();
+        });
+
+        container.appendChild(button);
+    });
+}
+
 
 /*==================================================
 RENDER CATEGORY TABLE
@@ -2780,10 +2880,13 @@ async function deleteCategoryConfirm(id) {
 }
 
 /*==================================================*
-*MEMBUAT CARD MENU
+* MEMBUAT CARD MENU
 *==================================================*/
 
 function createMenuCard(item) {
+
+    const menuTersedia =
+        item.tersedia !== false;
 
     return `
 
@@ -2821,9 +2924,9 @@ function createMenuCard(item) {
         <p class="menu-description"
         onclick='lihatDeskripsi(${JSON.stringify(item)})'>
 
-        ${item.deskripsi}
+            ${item.deskripsi}
 
-    </p>
+        </p>
 
         <div class="menu-price">
 
@@ -2839,14 +2942,35 @@ function createMenuCard(item) {
 
                 Detail
 
-        <button
+            </button>
 
-            class="btn-order"
-            onclick='tambahKeKeranjang(${JSON.stringify(item)})'>
+            ${
+                menuTersedia
 
-            Pesan
+                ? `
 
-        </button>
+                <button
+                    class="btn-order"
+                    onclick='tambahKeKeranjang(${JSON.stringify(item)})'>
+
+                    Pesan
+
+                </button>
+
+                `
+
+                : `
+
+                <button
+                    class="btn-order"
+                    disabled>
+
+                    🔴 Menu Kosong
+
+                </button>
+
+                `
+            }
 
         </div>
 
@@ -2858,12 +2982,12 @@ function createMenuCard(item) {
 
 }
 
-
 /*==================================================*
 * RENDER SATU KATEGORI
 *==================================================*/
 
 function renderCategory(title, menus, icon = "🍽️") {
+
 
     if (!menus || menus.length === 0) {
         return "";
@@ -2953,19 +3077,22 @@ function filterMenu() {
 
     }
 
+
     /* FILTER KATEGORI */
 
+    const kategoriAktif =
+        window.customerSelectedCategory ||
+        (filterKategori ? filterKategori.value : "Semua");
+
     if (
-        filterKategori &&
-        filterKategori.value !== "" &&
-        filterKategori.value !== "Semua"
+        kategoriAktif !== "" &&
+        kategoriAktif !== "Semua"
     ) {
-
         data = data.filter(item =>
-            item.kategori === filterKategori.value
+            item.kategori === kategoriAktif
         );
-
     }
+
 
     /* FILTER STATUS */
 
@@ -3001,87 +3128,64 @@ function filterMenu() {
 
 }
 
-/*==================================================*
-* GROUP MENU BERDASARKAN KATEGORI
-*==================================================*/
+
+/*==================================================
+GROUP MENU BERDASARKAN KATEGORI - DINAMIS
+==================================================*/
 
 function groupMenuByCategory(data) {
-
-    return {
-
+    const groups = {
         promo: data.filter(item => item.promo),
-
-        "Sarapan Pagi": data.filter(item =>
-            item.kategori === "Sarapan Pagi"
-        ),
-
-        "Makanan": data.filter(item =>
-            item.kategori === "Makanan"
-        ),
-
-        "Minuman": data.filter(item =>
-            item.kategori === "Minuman"
-        ),
-
-        "Paket Nasi Special": data.filter(item =>
-            item.kategori === "Paket Nasi Special"
-        ),
-
-        "Snack": data.filter(item =>
-            item.kategori === "Snack"
-        )
-
+        categories: {}
     };
 
+    data.forEach(item => {
+        const kategori = item.kategori || "Lainnya";
+
+        if (!groups.categories[kategori]) {
+            groups.categories[kategori] = [];
+        }
+
+        groups.categories[kategori].push(item);
+    });
+
+    return groups;
 }
 
-/*==================================================*
-* RENDER SEMUA KATEGORI
-*==================================================*/
+
+
+/*==================================================
+RENDER SEMUA KATEGORI - DINAMIS
+==================================================*/
 
 function renderAllCategories(groups) {
-
     let html = "";
 
-    /* PROMO */
-
+    // PROMO
     html += renderPromo(groups.promo);
 
-    /* KATEGORI */
+    // IKON KATEGORI
+    const ikonKategori = {
+        "Sarapan Pagi": "🥣",
+        "Makanan": "🍽️",
+        "Minuman": "☕",
+        "Paket Nasi Special": "🍛",
+        "Snack": "🥨",
+        "Dessert": "🍰"
+    };
 
-    html += renderCategory(
-        "Sarapan Pagi",
-        groups["Sarapan Pagi"],
-        "🥣"
-    );
-
-    html += renderCategory(
-        "Makanan",
-        groups["Makanan"],
-        "🍽️"
-    );
-
-    html += renderCategory(
-        "Minuman",
-        groups["Minuman"],
-        "☕"
-    );
-
-    html += renderCategory(
-        "Paket Nasi Special",
-        groups["Paket Nasi Special"],
-        "🍛"
-    );
-
-    html += renderCategory(
-        "Snack",
-        groups["Snack"],
-        "🥨"
-    );
+    // RENDER KATEGORI YANG MEMILIKI MENU
+    Object.entries(groups.categories).forEach(([nama, menus]) => {
+        html += renderCategory(
+            nama,
+            menus,
+            ikonKategori[nama] || "🍽️"
+        );
+    });
 
     return html;
-
 }
+
 
 /*==================================================*
 * RENDER MENU
@@ -3095,25 +3199,30 @@ function renderMenu() {
 
     /* MENU KOSONG */
 
-    if (data.length === 0) {
 
+if (data.length === 0) {
+    const kategoriAktif = window.customerSelectedCategory || "Semua";
+
+    if (kategoriAktif !== "Semua") {
         listMenu.innerHTML = `
-
-        <div class="empty-menu">
-
-            <h3>Tidak ada menu.</h3>
-
-            <p>Coba ubah pencarian atau filter.</p>
-
-        </div>
-
+            <div class="empty-menu">
+                <h3>🔴 Menu Kosong</h3>
+                <p>Belum ada menu dalam kategori ${kategoriAktif}.</p>
+            </div>
         `;
-
-        updateStatistik(data);
-
-        return;
-
+    } else {
+        listMenu.innerHTML = `
+            <div class="empty-menu">
+                <h3>Tidak ada menu.</h3>
+                <p>Coba ubah pencarian atau filter.</p>
+            </div>
+        `;
     }
+
+    updateStatistik(data);
+    return;
+}
+
 
     /* GROUP KATEGORI */
 
@@ -4214,6 +4323,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const adminTransactionGroup = document.getElementById("adminTransactionGroup");
     const adminReportGroup = document.getElementById("adminReportGroup");
 
+    const adminFinanceGroup =
+    document.getElementById("adminFinanceGroup");
+
     function resetAdminTab() {
 
         if (adminMenuGroup) {
@@ -4230,6 +4342,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (adminReportGroup) {
             adminReportGroup.style.display = "none";
+        }
+
+        if (adminFinanceGroup) {
+            adminFinanceGroup.style.display = "none";
         }
 
         if (tabMenu) {
@@ -4360,9 +4476,7 @@ if (tabKeuangan) {
 
 }
     // DEFAULT: MENU
-    if (adminMenuGroup) {
-        adminMenuGroup.style.display = "block";
-    }
+     resetAdminTab();
 
 });
 
