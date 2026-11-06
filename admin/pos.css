@@ -2161,3 +2161,18 @@ body {
     font-size: 22px !important;
     font-weight: bold !important;
 }
+
+
+/* =========================================
+   POS MENU - FOTO PERSEGI 1/4 UKURAN KARTU
+   ========================================= */
+
+#posMenuGrid .pos-menu-card img {
+    width: 70% !important;
+    max-width: 70% !important;
+    aspect-ratio: 1 / 1 !important;
+    height: auto !important;
+    object-fit: cover;
+    display: block;
+    margin: 0 auto;
+}

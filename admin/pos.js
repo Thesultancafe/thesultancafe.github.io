@@ -3212,6 +3212,44 @@ async function simpanTransaksi() {
 
         }
 
+        
+/* ==========================================
+   SELESAIKAN PESANAN CUSTOMER SETELAH BAYAR
+   ========================================== */
+
+if (idPesananCustomer) {
+
+    const {
+        error: updatePesananError
+    } = await supabaseClient
+
+        .from("pesanan_customer")
+
+        .update({
+            status: "SELESAI"
+        })
+
+        .eq(
+            "id",
+            idPesananCustomer
+        );
+
+
+    if (updatePesananError) {
+
+        console.error(
+            "Gagal memperbarui status pesanan:",
+            updatePesananError
+        );
+
+        alert(
+            "Transaksi berhasil disimpan, tetapi status pesanan belum berhasil diperbarui."
+        );
+
+    }
+
+}
+
 
         /* ==========================================
            BERHASIL
