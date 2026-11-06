@@ -1,4 +1,4 @@
-```css
+
 /* ==========================================
    THE SULTAN CAFE
    POS KASIR
@@ -1556,7 +1556,7 @@ body {
     }
 
 }
-```
+
 
 /* ==========================================
    SCROLL AREA KERANJANG POS
@@ -1798,32 +1798,23 @@ body {
 
 @media (max-width: 600px) {
 
-            .menu-grid {
-            grid-template-columns: 1fr;
-        }
-    
-    .active-customer-order-info {    
+    .menu-grid {
+        grid-template-columns: 1fr;
+    }
 
+    .active-customer-order-info {
         grid-template-columns:
             1fr
             1fr;
-
         gap: 5px;
-
     }
-
 
     .active-customer-order-info strong {
-
         grid-column: 1 / -1;
-
     }
 
-
     .btn-call-active-order {
-
         width: 100%;
-
     }
 
 }
@@ -2096,3 +2087,77 @@ body {
 
 }
 
+
+/* =========================================
+   THE SULTAN CAFE - POS TABLET 6 KOLOM
+   Override tambahan, CSS lama tetap utuh
+   ========================================= */
+
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+    #posMenuGrid {
+        grid-template-columns: repeat(6, minmax(0, 1fr)) !important;
+        gap: 4px !important;
+    }
+
+    #posMenuGrid .pos-menu-card {
+        min-width: 0 !important;
+    }
+
+    #posMenuGrid .pos-menu-card img {
+        max-width: 100%;
+    }
+}
+
+
+/* =========================================
+   POS - FORM PELANGGAN SATU BARIS
+   Override tambahan, CSS lama tetap utuh
+   ========================================= */
+
+.pos-customer {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+}
+
+.pos-customer .pos-form-group {
+    min-width: 0;
+    margin-bottom: 0;
+}
+
+.pos-customer input {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    padding: 8px;
+    font-size: 13px;
+}
+
+
+/* POS - Metode pembayaran tanpa ikon */
+.pos-payment .payment-method i {
+    display: none !important;
+}
+
+/* ==========================================
+   UKURAN NOMINAL PEMBAYARAN POS
+   ========================================== */
+
+#posSubtotal {
+    font-size: 18px !important;
+}
+
+#posTotal {
+    font-size: 24px !important;
+    font-weight: bold !important;
+}
+
+#posAmountPaid {
+    font-size: 20px !important;
+    font-weight: bold !important;
+}
+
+#posChange {
+    font-size: 22px !important;
+    font-weight: bold !important;
+}
