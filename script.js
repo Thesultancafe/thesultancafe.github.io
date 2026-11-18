@@ -6798,8 +6798,19 @@ document.addEventListener("DOMContentLoaded", function () {
                                 Rp ${nominal}
                             </td>
 
-                            <td style="text-align:center;">
+                            <td style="text-align:center; white-space:nowrap;">
 
+                                <button
+                                    type="button"
+                                    class="btn-secondary btn-edit-finance"
+                                    data-id="${item.id}"
+                                    style="padding:6px 10px;">
+
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                    Edit
+
+                                </button>
+    
                                 <button
                                     type="button"
                                     class="btn-secondary btn-delete-finance"
