@@ -2252,16 +2252,18 @@ async function cetakOrderCustomer(pesanan, detail) {
 
 
 
+
 /* ==========================================
    INFORMASI ORDER
    ========================================== */
 
 content.push({
 
-    type: "text",
+    type: "row",
 
-    text:
-        "Order: " +
+    left: "Order",
+
+    right:
         pesanan.kode_pesanan
 
 });
@@ -2271,10 +2273,11 @@ if (pesanan.nama_pelanggan) {
 
     content.push({
 
-        type: "text",
+        type: "row",
 
-        text:
-            "Pelanggan: " +
+        left: "Pelanggan",
+
+        right:
             pesanan.nama_pelanggan
 
     });
@@ -2286,10 +2289,11 @@ if (pesanan.nomor_meja) {
 
     content.push({
 
-        type: "text",
+        type: "row",
 
-        text:
-            "Meja: " +
+        left: "Meja",
+
+        right:
             pesanan.nomor_meja
 
     });
@@ -2586,16 +2590,18 @@ content.push({
 
 
         
+
 /* ==========================================
    INFORMASI TRANSAKSI
    ========================================== */
 
 content.push({
 
-    type: "text",
+    type: "row",
 
-    text:
-        "No. Transaksi: " +
+    left: "No. Transaksi",
+
+    right:
         dataTransaksi.nomorTransaksi
 
 });
@@ -2603,10 +2609,11 @@ content.push({
 
 content.push({
 
-    type: "text",
+    type: "row",
 
-    text:
-        "Kasir: " +
+    left: "Kasir",
+
+    right:
         dataTransaksi.kasir
 
 });
@@ -2616,10 +2623,11 @@ if (dataTransaksi.namaPelanggan) {
 
     content.push({
 
-        type: "text",
+        type: "row",
 
-        text:
-            "Pelanggan: " +
+        left: "Pelanggan",
+
+        right:
             dataTransaksi.namaPelanggan
 
     });
@@ -2631,32 +2639,16 @@ if (dataTransaksi.nomorMeja) {
 
     content.push({
 
-        type: "text",
+        type: "row",
 
-        text:
-            "Meja: " +
+        left: "Meja",
+
+        right:
             dataTransaksi.nomorMeja
 
     });
 
 }
-
-
-        if (dataTransaksi.nomorMeja) {
-
-            content.push({
-
-                type: "row",
-
-                left: "Meja",
-
-                right:
-                    dataTransaksi.nomorMeja
-
-            });
-
-        }
-
 
         content.push({
 
