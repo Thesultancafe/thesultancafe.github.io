@@ -7131,8 +7131,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
+
     // ==========================================
-    // SIMPAN PEMASUKAN
+    // SIMPAN PEMASUKAN + CETAK OTOMATIS
     // ==========================================
 
     btnSimpanPemasukan.addEventListener(
@@ -7157,9 +7158,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 const nominalPemasukan =
                     financeNominalPemasukan
-                        ? Number(
-                            financeNominalPemasukan.value
-                        )
+                        ? Number(financeNominalPemasukan.value)
                         : 0;
 
                 const keteranganPemasukan =
@@ -7173,10 +7172,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 // ==========================================
 
                 if (!jenisPemasukan) {
-
-                    alert(
-                        "Jenis pemasukan belum dipilih."
-                    );
+                    alert("Jenis pemasukan belum dipilih.");
 
                     if (financeJenisPemasukan) {
                         financeJenisPemasukan.focus();
@@ -7191,10 +7187,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 // ==========================================
 
                 if (!tanggalPemasukan) {
-
-                    alert(
-                        "Tanggal pemasukan belum diisi."
-                    );
+                    alert("Tanggal pemasukan belum diisi.");
 
                     if (financeTanggalPemasukan) {
                         financeTanggalPemasukan.focus();
@@ -7208,14 +7201,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 // VALIDASI NOMINAL
                 // ==========================================
 
-                if (
-                    !nominalPemasukan ||
-                    nominalPemasukan <= 0
-                ) {
-
-                    alert(
-                        "Nominal pemasukan harus diisi."
-                    );
+                if (!nominalPemasukan || nominalPemasukan <= 0) {
+                    alert("Nominal pemasukan harus diisi.");
 
                     if (financeNominalPemasukan) {
                         financeNominalPemasukan.focus();
@@ -7230,9 +7217,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 // ==========================================
 
                 let tanggalPesanan = null;
-
                 let namaPemesan = null;
-
                 let room = null;
 
 
@@ -7258,15 +7243,8 @@ document.addEventListener("DOMContentLoaded", function () {
                             : "";
 
 
-                    // ==========================================
-                    // VALIDASI TANGGAL PESANAN
-                    // ==========================================
-
                     if (!tanggalPesanan) {
-
-                        alert(
-                            "Tanggal pesanan belum diisi."
-                        );
+                        alert("Tanggal pesanan belum diisi.");
 
                         if (financeTanggalPesanan) {
                             financeTanggalPesanan.focus();
@@ -7275,16 +7253,8 @@ document.addEventListener("DOMContentLoaded", function () {
                         return;
                     }
 
-
-                    // ==========================================
-                    // VALIDASI NAMA PEMESAN
-                    // ==========================================
-
                     if (!namaPemesan) {
-
-                        alert(
-                            "Nama pemesan belum diisi."
-                        );
+                        alert("Nama pemesan belum diisi.");
 
                         if (financeNamaPemesan) {
                             financeNamaPemesan.focus();
@@ -7293,16 +7263,8 @@ document.addEventListener("DOMContentLoaded", function () {
                         return;
                     }
 
-
-                    // ==========================================
-                    // VALIDASI ROOM
-                    // ==========================================
-
                     if (!room) {
-
-                        alert(
-                            "Room belum diisi."
-                        );
+                        alert("Room belum diisi.");
 
                         if (financeRoom) {
                             financeRoom.focus();
@@ -7319,32 +7281,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 const dataPemasukan = {
 
-                    tanggal:
-                        tanggalPemasukan,
+                    tanggal: tanggalPemasukan,
+                    jenis: jenisPemasukan,
+                    nominal: nominalPemasukan,
+                    tanggal_pesanan: tanggalPesanan || null,
+                    nama_pemesan: namaPemesan || null,
+                    room: room || null,
+                    keterangan: keteranganPemasukan || null
 
-                    jenis:
-                        jenisPemasukan,
-
-                    nominal:
-                        nominalPemasukan,
-
-                    tanggal_pesanan:
-                        tanggalPesanan || null,
-
-                    nama_pemesan:
-                        namaPemesan || null,
-
-                    room:
-                        room || null,
-
-                    keterangan:
-                        keteranganPemasukan || null
                 };
 
-
-                // ==========================================
-                // DEBUG
-                // ==========================================
 
                 console.log(
                     "💰 DATA PEMASUKAN YANG AKAN DISIMPAN:",
@@ -7364,11 +7310,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
                 // ==========================================
-                // CEK ERROR
+                // CEK ERROR SUPABASE
                 // ==========================================
 
                 if (hasilInsert.error) {
-
                     console.error(
                         "❌ SUPABASE ERROR:",
                         hasilInsert.error
@@ -7378,27 +7323,253 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
 
 
-                // ==========================================
-                // BERHASIL
-                // ==========================================
-
                 console.log(
                     "✅ PEMASUKAN BERHASIL DISIMPAN:",
                     hasilInsert.data
                 );
 
 
+                // ==========================================
+                // SUSUN BUKTI PEMASUKAN
+                // ==========================================
+
+                const content = [];
+
+
+                function formatTanggalBukti(tanggal) {
+
+                    if (!tanggal) {
+                        return "-";
+                    }
+
+                    const bagian = tanggal.split("-");
+
+                    if (bagian.length !== 3) {
+                        return tanggal;
+                    }
+
+                    return (
+                        bagian[2] + "/" +
+                        bagian[1] + "/" +
+                        bagian[0]
+                    );
+                }
+
+
+                content.push({
+                    type: "text",
+                    text: "THE SULTAN CAFE",
+                    align: "center",
+                    bold: true,
+                    size: "large"
+                });
+
+                content.push({
+                    type: "text",
+                    text: "Palembang Tempo Doeloe",
+                    align: "center"
+                });
+
+                content.push({
+                    type: "text",
+                    text: "--------------------------------"
+                });
+
+                content.push({
+                    type: "text",
+                    text: "BUKTI PEMASUKAN",
+                    align: "center",
+                    bold: true
+                });
+
+                content.push({
+                    type: "text",
+                    text: "--------------------------------"
+                });
+
+                content.push({
+                    type: "text",
+                    text: "Jenis: " +
+                        (
+                            jenisPemasukan === "DP"
+                                ? "DP PESANAN"
+                                : "PEMASUKAN UMUM"
+                        )
+                });
+
+                content.push({
+                    type: "text",
+                    text: "Tanggal: " +
+                        formatTanggalBukti(tanggalPemasukan)
+                });
+
+
+                // ==========================================
+                // INFORMASI DP
+                // ==========================================
+
                 if (jenisPemasukan === "DP") {
 
-                    alert(
-                        "DP pemesanan berhasil disimpan."
+                    content.push({
+                        type: "text",
+                        text: "--------------------------------"
+                    });
+
+                    content.push({
+                        type: "text",
+                        text: "INFORMASI PESANAN",
+                        bold: true
+                    });
+
+                    content.push({
+                        type: "text",
+                        text: "Tanggal Pesanan: " +
+                            formatTanggalBukti(tanggalPesanan)
+                    });
+
+                    content.push({
+                        type: "text",
+                        text: "Nama Pemesan: " + namaPemesan
+                    });
+
+                    content.push({
+                        type: "text",
+                        text: "Room: " + room
+                    });
+                }
+
+
+                // ==========================================
+                // NOMINAL PEMASUKAN
+                // ==========================================
+
+                content.push({
+                    type: "text",
+                    text: "--------------------------------"
+                });
+
+                content.push({
+                    type: "text",
+                    text: "TOTAL PEMASUKAN",
+                    align: "center",
+                    bold: true
+                });
+
+                content.push({
+                    type: "text",
+                    text: formatRupiah(nominalPemasukan),
+                    align: "center",
+                    bold: true,
+                    size: "large"
+                });
+
+
+                // ==========================================
+                // KETERANGAN
+                // ==========================================
+
+                if (keteranganPemasukan) {
+
+                    content.push({
+                        type: "text",
+                        text: "--------------------------------"
+                    });
+
+                    content.push({
+                        type: "text",
+                        text: "Keterangan:"
+                    });
+
+                    content.push({
+                        type: "text",
+                        text: keteranganPemasukan
+                    });
+                }
+
+
+                // ==========================================
+                // FOOTER
+                // ==========================================
+
+                content.push({
+                    type: "text",
+                    text: "--------------------------------"
+                });
+
+                content.push({
+                    type: "text",
+                    text: "Terima kasih",
+                    align: "center",
+                    bold: true
+                });
+
+                content.push({
+                    type: "text",
+                    text: "Palembang Tempo Doeloe",
+                    align: "center"
+                });
+
+                content.push({
+                    type: "feed",
+                    lines: 3
+                });
+
+
+                // ==========================================
+                // CETAK OTOMATIS KE CLEANTER
+                // ==========================================
+
+                let cetakBerhasil = false;
+
+                try {
+
+                    const response = await fetch(
+                        "http://localhost:9100/print",
+                        {
+                            method: "POST",
+
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+
+                            body: JSON.stringify({
+                                cut: true,
+                                content: content
+                            })
+                        }
                     );
 
-                } else {
 
-                    alert(
-                        "Pemasukan umum berhasil disimpan."
+                    if (!response.ok) {
+
+                        const errorData =
+                            await response.json().catch(() => ({}));
+
+                        throw new Error(
+                            errorData.error ||
+                            "Printer tidak dapat mencetak."
+                        );
+                    }
+
+
+                    const hasilCetak =
+                        await response.json();
+
+                    console.log(
+                        "✅ BUKTI PEMASUKAN BERHASIL DICETAK:",
+                        hasilCetak
                     );
+
+                    cetakBerhasil = true;
+
+
+                } catch (errorCetak) {
+
+                    console.error(
+                        "❌ GAGAL MENCETAK BUKTI PEMASUKAN:",
+                        errorCetak
+                    );
+
                 }
 
 
@@ -7407,20 +7578,15 @@ document.addEventListener("DOMContentLoaded", function () {
                 // ==========================================
 
                 if (financeTanggalPemasukan) {
-
                     financeTanggalPemasukan.value =
                         tanggalHariIni();
                 }
 
-
                 if (financeNominalPemasukan) {
-
                     financeNominalPemasukan.value = "";
                 }
 
-
                 if (financeKeteranganPemasukan) {
-
                     financeKeteranganPemasukan.value = "";
                 }
 
@@ -7430,19 +7596,14 @@ document.addEventListener("DOMContentLoaded", function () {
                 // ==========================================
 
                 if (financeTanggalPesanan) {
-
                     financeTanggalPesanan.value = "";
                 }
 
-
                 if (financeNamaPemesan) {
-
                     financeNamaPemesan.value = "";
                 }
 
-
                 if (financeRoom) {
-
                     financeRoom.value = "";
                 }
 
@@ -7452,16 +7613,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 // ==========================================
 
                 if (financeJenisPemasukan) {
-
-                    financeJenisPemasukan.value =
-                        "UMUM";
+                    financeJenisPemasukan.value = "UMUM";
                 }
 
-
                 if (financeDataDP) {
-
-                    financeDataDP.style.display =
-                        "none";
+                    financeDataDP.style.display = "none";
                 }
 
 
@@ -7470,17 +7626,35 @@ document.addEventListener("DOMContentLoaded", function () {
                 );
 
 
+                // ==========================================
+                // HASIL AKHIR
+                // ==========================================
+
+                if (cetakBerhasil) {
+
+                    alert(
+                        "Pemasukan berhasil disimpan dan bukti berhasil dicetak."
+                    );
+
+                } else {
+
+                    alert(
+                        "Pemasukan berhasil disimpan, tetapi bukti belum dapat dicetak.\n\n" +
+                        "Periksa koneksi Cleanter dan printer."
+                    );
+                }
+
+
             } catch (error) {
 
                 // ==========================================
-                // ERROR
+                // ERROR PENYIMPANAN
                 // ==========================================
 
                 console.error(
                     "❌ GAGAL MENYIMPAN PEMASUKAN:",
                     error
                 );
-
 
                 alert(
                     "Gagal menyimpan pemasukan.\n\n" +
@@ -7489,6 +7663,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         "Terjadi kesalahan saat menyimpan data."
                     )
                 );
+
             }
 
         }
