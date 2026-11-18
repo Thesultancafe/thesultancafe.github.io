@@ -1782,7 +1782,7 @@ async function cetakUlangNotaRiwayat(dataTransaksi) {
 
         content.push({
             type: "feed",
-            lines: 3
+            lines: 1
         });
 
         /* KIRIM KE CLEANTER */
@@ -7511,7 +7511,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 content.push({
                     type: "feed",
-                    lines: 3
+                    lines: 1
                 });
 
 
@@ -7886,7 +7886,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     content.push({
                         type: "feed",
-                        lines: 3
+                        lines: 1
                     });
 
                     // KIRIM KE CLEANTER
