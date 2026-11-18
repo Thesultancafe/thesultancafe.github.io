@@ -1622,13 +1622,248 @@ if (btnPrint) {
                 dataCetak
             );
 
-            await cetakStruk58mm(
+            await cetakUlangNotaRiwayat(
                 dataCetak
             );
 
         };
 }
 }
+
+
+/* ==========================================
+   CETAK ULANG NOTA RIWAYAT TRANSAKSI
+   ========================================== */
+
+async function cetakUlangNotaRiwayat(dataTransaksi) {
+
+    try {
+
+        const content = [];
+
+        /* HEADER NOTA */
+
+        content.push({
+            type: "text",
+            text: "THE SULTAN CAFE",
+            align: "center",
+            bold: true,
+            size: "large"
+        });
+
+        content.push({
+            type: "text",
+            text: "Palembang Tempo Doeloe",
+            align: "center"
+        });
+
+        content.push({
+            type: "text",
+            text: "--------------------------------"
+        });
+
+        /* INFORMASI TRANSAKSI */
+
+        content.push({
+            type: "text",
+            text: "No. Transaksi: " + dataTransaksi.nomorTransaksi
+        });
+
+        content.push({
+            type: "text",
+            text: "Kasir: " + dataTransaksi.kasir
+        });
+
+        if (dataTransaksi.namaPelanggan) {
+            content.push({
+                type: "text",
+                text: "Pelanggan: " + dataTransaksi.namaPelanggan
+            });
+        }
+
+        if (dataTransaksi.nomorMeja) {
+            content.push({
+                type: "text",
+                text: "Meja: " + dataTransaksi.nomorMeja
+            });
+        }
+
+        content.push({
+            type: "text",
+            text: "--------------------------------"
+        });
+
+        /* DAFTAR MENU */
+
+        dataTransaksi.items.forEach(function(item) {
+
+            const namaItem =
+                item.nama + " x" + item.jumlah;
+
+            const subtotal =
+                Number(item.harga) * Number(item.jumlah);
+
+            content.push({
+                type: "text",
+                text: formatBarisCetakRiwayat(
+                    namaItem,
+                    formatRupiah(subtotal)
+                )
+            });
+
+            if (item.catatan) {
+                content.push({
+                    type: "text",
+                    text: "  Catatan: " + item.catatan
+                });
+            }
+
+        });
+
+        /* TOTAL PEMBAYARAN */
+
+        content.push({
+            type: "text",
+            text: "--------------------------------"
+        });
+
+        content.push({
+            type: "text",
+            text: formatBarisCetakRiwayat(
+                "TOTAL",
+                formatRupiah(dataTransaksi.total)
+            ),
+            bold: true
+        });
+
+        content.push({
+            type: "text",
+            text: formatBarisCetakRiwayat(
+                "Pembayaran",
+                dataTransaksi.metodePembayaran
+            )
+        });
+
+        content.push({
+            type: "text",
+            text: formatBarisCetakRiwayat(
+                "Dibayar",
+                formatRupiah(dataTransaksi.jumlahDibayar)
+            )
+        });
+
+        content.push({
+            type: "text",
+            text: formatBarisCetakRiwayat(
+                "Kembalian",
+                formatRupiah(dataTransaksi.kembalian)
+            )
+        });
+
+        /* FOOTER */
+
+        content.push({
+            type: "text",
+            text: "--------------------------------"
+        });
+
+        content.push({
+            type: "text",
+            text: "Terima kasih",
+            align: "center",
+            bold: true
+        });
+
+        content.push({
+            type: "text",
+            text: "Selamat menikmati",
+            align: "center"
+        });
+
+        content.push({
+            type: "feed",
+            lines: 3
+        });
+
+        /* KIRIM KE CLEANTER */
+
+        const response = await fetch(
+            "http://localhost:9100/print",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    cut: true,
+                    content: content
+                })
+            }
+        );
+
+        if (!response.ok) {
+
+            const errorData =
+                await response.json().catch(() => ({}));
+
+            throw new Error(
+                errorData.error ||
+                "Printer tidak dapat mencetak."
+            );
+
+        }
+
+        const result = await response.json();
+
+        console.log(
+            "Cetak ulang nota berhasil:",
+            result
+        );
+
+        alert("Nota berhasil dikirim ke printer.");
+
+        return true;
+
+    } catch (error) {
+
+        console.error(
+            "Gagal mencetak ulang nota:",
+            error
+        );
+
+        alert(
+            "Nota belum dapat dicetak.\n\n" +
+            "Periksa koneksi Cleanter dan printer."
+        );
+
+        return false;
+
+    }
+
+}
+
+
+/* ==========================================
+   FORMAT BARIS NOTA RIWAYAT
+   ========================================== */
+
+function formatBarisCetakRiwayat(kiri, kanan) {
+
+    const lebar = 32;
+
+    kiri = String(kiri || "");
+    kanan = String(kanan || "");
+
+    const sisa = lebar - kiri.length - kanan.length;
+
+    if (sisa < 1) {
+        return kiri + " " + kanan;
+    }
+
+    return kiri + " ".repeat(sisa) + kanan;
+
+}
+
 
 /*==================================================
 LOADING SCREEN
