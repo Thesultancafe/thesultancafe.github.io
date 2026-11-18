@@ -7494,5 +7494,284 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     );
 
+
+    // ==========================================
+    // CETAK BUKTI PEMASUKAN
+    // ==========================================
+
+    const btnCetakPemasukan =
+        document.getElementById("btnCetakPemasukan");
+
+    if (btnCetakPemasukan) {
+
+        btnCetakPemasukan.addEventListener(
+            "click",
+            async function () {
+
+                try {
+
+                    // AMBIL DATA FORM
+                    const jenis =
+                        financeJenisPemasukan.value;
+
+                    const tanggal =
+                        financeTanggalPemasukan.value;
+
+                    const nominal =
+                        Number(financeNominalPemasukan.value);
+
+                    const keterangan =
+                        financeKeteranganPemasukan.value.trim();
+
+                    // VALIDASI DATA UTAMA
+                    if (!jenis || !tanggal || nominal <= 0) {
+
+                        alert(
+                            "Lengkapi jenis, tanggal, dan nominal pemasukan."
+                        );
+
+                        return;
+                    }
+
+                    // DATA KHUSUS DP
+                    let tanggalPesanan = "";
+                    let namaPemesan = "";
+                    let room = "";
+
+                    if (jenis === "DP") {
+
+                        tanggalPesanan =
+                            financeTanggalPesanan.value;
+
+                        namaPemesan =
+                            financeNamaPemesan.value.trim();
+
+                        room =
+                            financeRoom.value.trim();
+
+                        if (
+                            !tanggalPesanan ||
+                            !namaPemesan ||
+                            !room
+                        ) {
+
+                            alert(
+                                "Lengkapi seluruh data DP terlebih dahulu."
+                            );
+
+                            return;
+                        }
+                    }
+
+                    // FORMAT TANGGAL
+                    function formatTanggalPemasukan(nilai) {
+
+                        if (!nilai) return "-";
+
+                        return new Date(
+                            nilai + "T00:00:00"
+                        ).toLocaleDateString("id-ID");
+
+                    }
+
+                    // SUSUN NOTA
+                    const content = [];
+
+                    content.push({
+                        type: "text",
+                        text: "THE SULTAN CAFE",
+                        align: "center",
+                        bold: true,
+                        size: "large"
+                    });
+
+                    content.push({
+                        type: "text",
+                        text: "Palembang Tempo Doeloe",
+                        align: "center"
+                    });
+
+                    content.push({
+                        type: "text",
+                        text: "--------------------------------"
+                    });
+
+                    content.push({
+                        type: "text",
+                        text: "BUKTI PEMASUKAN",
+                        align: "center",
+                        bold: true
+                    });
+
+                    content.push({
+                        type: "text",
+                        text: "--------------------------------"
+                    });
+
+                    content.push({
+                        type: "text",
+                        text: "Jenis: " +
+                            (
+                                jenis === "DP"
+                                    ? "DP Pesanan"
+                                    : "Pemasukan Umum"
+                            )
+                    });
+
+                    content.push({
+                        type: "text",
+                        text: "Tanggal: " +
+                            formatTanggalPemasukan(tanggal)
+                    });
+
+                    content.push({
+                        type: "text",
+                        text: "--------------------------------"
+                    });
+
+                    content.push({
+                        type: "text",
+                        text: "NOMINAL PEMASUKAN",
+                        align: "center",
+                        bold: true
+                    });
+
+                    content.push({
+                        type: "text",
+                        text: formatRupiah(nominal),
+                        align: "center",
+                        bold: true,
+                        size: "large"
+                    });
+
+                    // INFORMASI KHUSUS DP
+                    if (jenis === "DP") {
+
+                        content.push({
+                            type: "text",
+                            text: "--------------------------------"
+                        });
+
+                        content.push({
+                            type: "text",
+                            text: "Tanggal Pesanan: " +
+                                formatTanggalPemasukan(tanggalPesanan)
+                        });
+
+                        content.push({
+                            type: "text",
+                            text: "Nama Pemesan: " + namaPemesan
+                        });
+
+                        content.push({
+                            type: "text",
+                            text: "Room: " + room
+                        });
+
+                    }
+
+                    // KETERANGAN
+                    if (keterangan) {
+
+                        content.push({
+                            type: "text",
+                            text: "--------------------------------"
+                        });
+
+                        content.push({
+                            type: "text",
+                            text: "Keterangan:"
+                        });
+
+                        content.push({
+                            type: "text",
+                            text: keterangan
+                        });
+
+                    }
+
+                    // FOOTER
+                    content.push({
+                        type: "text",
+                        text: "--------------------------------"
+                    });
+
+                    content.push({
+                        type: "text",
+                        text: "Terima kasih",
+                        align: "center",
+                        bold: true
+                    });
+
+                    content.push({
+                        type: "text",
+                        text: "THE SULTAN CAFE",
+                        align: "center"
+                    });
+
+                    content.push({
+                        type: "feed",
+                        lines: 3
+                    });
+
+                    // KIRIM KE CLEANTER
+                    const response = await fetch(
+                        "http://localhost:9100/print",
+                        {
+                            method: "POST",
+
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+
+                            body: JSON.stringify({
+                                cut: true,
+                                content: content
+                            })
+                        }
+                    );
+
+                    if (!response.ok) {
+
+                        const errorData =
+                            await response.json().catch(() => ({}));
+
+                        throw new Error(
+                            errorData.error ||
+                            "Printer tidak dapat mencetak."
+                        );
+
+                    }
+
+                    const result = await response.json();
+
+                    console.log(
+                        "✅ CETAK PEMASUKAN BERHASIL:",
+                        result
+                    );
+
+                    alert(
+                        "Bukti pemasukan berhasil dikirim ke printer."
+                    );
+
+                } catch (error) {
+
+                    console.error(
+                        "❌ GAGAL CETAK PEMASUKAN:",
+                        error
+                    );
+
+                    alert(
+                        "Gagal mencetak pemasukan.\n\n" +
+                        error.message
+                    );
+
+                }
+
+            }
+        );
+
+    }
+   
 });
 
