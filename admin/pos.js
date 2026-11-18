@@ -2251,52 +2251,50 @@ async function cetakOrderCustomer(pesanan, detail) {
         });
 
 
-        /* ==========================================
-           INFORMASI ORDER
-           ========================================== */
 
-        content.push({
+/* ==========================================
+   INFORMASI ORDER
+   ========================================== */
 
-            type: "row",
+content.push({
 
-            left: "Order",
+    type: "text",
 
-            right:
-                pesanan.kode_pesanan
+    text:
+        "Order: " +
+        pesanan.kode_pesanan
 
-        });
-
-
-        if (pesanan.nama_pelanggan) {
-
-            content.push({
-
-                type: "row",
-
-                left: "Pelanggan",
-
-                right:
-                    pesanan.nama_pelanggan
-
-            });
-
-        }
+});
 
 
-        if (pesanan.nomor_meja) {
+if (pesanan.nama_pelanggan) {
 
-            content.push({
+    content.push({
 
-                type: "row",
+        type: "text",
 
-                left: "Meja",
+        text:
+            "Pelanggan: " +
+            pesanan.nama_pelanggan
 
-                right:
-                    pesanan.nomor_meja
+    });
 
-            });
+}
 
-        }
+
+if (pesanan.nomor_meja) {
+
+    content.push({
+
+        type: "text",
+
+        text:
+            "Meja: " +
+            pesanan.nomor_meja
+
+    });
+
+}
 
 
         content.push({
@@ -2587,48 +2585,61 @@ content.push({
         });
 
 
-        /* ==========================================
-           INFORMASI TRANSAKSI
-           ========================================== */
+        
+/* ==========================================
+   INFORMASI TRANSAKSI
+   ========================================== */
 
-        content.push({
+content.push({
 
-            type: "row",
+    type: "text",
 
-            left: "No. Transaksi",
+    text:
+        "No. Transaksi: " +
+        dataTransaksi.nomorTransaksi
 
-            right:
-                dataTransaksi.nomorTransaksi
-
-        });
-
-
-        content.push({
-
-            type: "row",
-
-            left: "Kasir",
-
-            right:
-                dataTransaksi.kasir
-
-        });
+});
 
 
-        if (dataTransaksi.namaPelanggan) {
+content.push({
 
-            content.push({
+    type: "text",
 
-                type: "row",
+    text:
+        "Kasir: " +
+        dataTransaksi.kasir
 
-                left: "Pelanggan",
+});
 
-                right:
-                    dataTransaksi.namaPelanggan
 
-            });
+if (dataTransaksi.namaPelanggan) {
 
-        }
+    content.push({
+
+        type: "text",
+
+        text:
+            "Pelanggan: " +
+            dataTransaksi.namaPelanggan
+
+    });
+
+}
+
+
+if (dataTransaksi.nomorMeja) {
+
+    content.push({
+
+        type: "text",
+
+        text:
+            "Meja: " +
+            dataTransaksi.nomorMeja
+
+    });
+
+}
 
 
         if (dataTransaksi.nomorMeja) {
