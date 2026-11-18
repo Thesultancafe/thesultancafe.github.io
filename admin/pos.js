@@ -2253,17 +2253,17 @@ async function cetakOrderCustomer(pesanan, detail) {
 
 
 
+
 /* ==========================================
    INFORMASI ORDER
    ========================================== */
 
 content.push({
 
-    type: "row",
+    type: "text",
 
-    left: "Order",
-
-    right:
+    text:
+        "Order: " +
         pesanan.kode_pesanan
 
 });
@@ -2273,11 +2273,10 @@ if (pesanan.nama_pelanggan) {
 
     content.push({
 
-        type: "row",
+        type: "text",
 
-        left: "Pelanggan",
-
-        right:
+        text:
+            "Pelanggan: " +
             pesanan.nama_pelanggan
 
     });
@@ -2289,11 +2288,10 @@ if (pesanan.nomor_meja) {
 
     content.push({
 
-        type: "row",
+        type: "text",
 
-        left: "Meja",
-
-        right:
+        text:
+            "Meja: " +
             pesanan.nomor_meja
 
     });
@@ -2591,17 +2589,17 @@ content.push({
 
         
 
+
 /* ==========================================
    INFORMASI TRANSAKSI
    ========================================== */
 
 content.push({
 
-    type: "row",
+    type: "text",
 
-    left: "No. Transaksi",
-
-    right:
+    text:
+        "No. Transaksi: " +
         dataTransaksi.nomorTransaksi
 
 });
@@ -2609,11 +2607,10 @@ content.push({
 
 content.push({
 
-    type: "row",
+    type: "text",
 
-    left: "Kasir",
-
-    right:
+    text:
+        "Kasir: " +
         dataTransaksi.kasir
 
 });
@@ -2623,11 +2620,10 @@ if (dataTransaksi.namaPelanggan) {
 
     content.push({
 
-        type: "row",
+        type: "text",
 
-        left: "Pelanggan",
-
-        right:
+        text:
+            "Pelanggan: " +
             dataTransaksi.namaPelanggan
 
     });
@@ -2639,11 +2635,10 @@ if (dataTransaksi.nomorMeja) {
 
     content.push({
 
-        type: "row",
+        type: "text",
 
-        left: "Meja",
-
-        right:
+        text:
+            "Meja: " +
             dataTransaksi.nomorMeja
 
     });
