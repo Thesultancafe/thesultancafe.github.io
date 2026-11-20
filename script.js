@@ -7072,6 +7072,81 @@ document.addEventListener("DOMContentLoaded", function () {
     const financeRoom =
         document.getElementById("financeRoom");
 
+    
+// ==========================================
+// BATAL PEMASUKAN
+// ==========================================
+
+const btnBatalPemasukan =
+    document.getElementById("btnHapusPemasukan");
+
+if (btnBatalPemasukan) {
+
+    btnBatalPemasukan.innerHTML =
+        '<i class="fa-solid fa-xmark"></i> Batal';
+
+    btnBatalPemasukan.addEventListener(
+        "click",
+        function () {
+
+            const konfirmasi = confirm(
+                "Batalkan pengisian atau perubahan pemasukan?"
+            );
+
+            if (!konfirmasi) {
+                return;
+            }
+
+            // Reset form utama
+            if (financeJenisPemasukan) {
+                financeJenisPemasukan.value = "UMUM";
+            }
+
+            if (financeTanggalPemasukan) {
+                financeTanggalPemasukan.value =
+                    tanggalHariIni();
+            }
+
+            if (financeNominalPemasukan) {
+                financeNominalPemasukan.value = "";
+            }
+
+            if (financeKeteranganPemasukan) {
+                financeKeteranganPemasukan.value = "";
+            }
+
+            // Reset data DP
+            if (financeTanggalPesanan) {
+                financeTanggalPesanan.value = "";
+            }
+
+            if (financeNamaPemesan) {
+                financeNamaPemesan.value = "";
+            }
+
+            if (financeRoom) {
+                financeRoom.value = "";
+            }
+
+            if (financeDataDP) {
+                financeDataDP.style.display = "none";
+            }
+
+            // Keluar dari mode Edit
+            editFinanceId = null;
+
+            btnSimpanPemasukan.innerHTML =
+                tombolSimpanAwal;
+
+            console.log(
+                "BATAL PEMASUKAN BERHASIL."
+            );
+
+        }
+    );
+
+}
+
 
     // ==========================================
     // CEK TOMBOL
