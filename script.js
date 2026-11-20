@@ -7570,6 +7570,13 @@ if (btnBatalPemasukan) {
 
 
                 // ==========================================
+                // STATUS CETAK BUKTI
+                // ==========================================
+
+                    let cetakBerhasil = false;
+
+
+                // ==========================================
                 // CETAK HANYA UNTUK PEMASUKAN BARU
                 // ==========================================
 
@@ -7765,8 +7772,7 @@ if (btnBatalPemasukan) {
                 // CETAK OTOMATIS KE CLEANTER
                 // ==========================================
 
-                let cetakBerhasil = false;
-
+        
                 try {
 
                     const response = await fetch(
@@ -8219,6 +8225,114 @@ if (btnBatalPemasukan) {
         );
 
     }
-   
+
+    // ==========================================
+    // DAFTAR PEMASUKAN
+    // ==========================================
+
+    async function muatDaftarPemasukan() {
+
+        const tbody = document.getElementById(
+            "financePemasukanTableBody"
+        );
+
+        if (!tbody) {
+            console.warn(
+                "Tabel Daftar Pemasukan tidak ditemukan."
+            );
+            return;
+        }
+
+        const hasil = await supabaseClient
+            .from("keuangan")
+            .select("*")
+            .in("jenis", ["UMUM", "DP"])
+            .order("tanggal", { ascending: false });
+
+        if (hasil.error) {
+            console.error(
+                "GAGAL MEMUAT DAFTAR PEMASUKAN:",
+                hasil.error
+            );
+            return;
+        }
+
+        tbody.innerHTML = "";
+
+        if (!hasil.data || hasil.data.length === 0) {
+            tbody.innerHTML = `
+                <tr>
+                    <td colspan="6">
+                        Belum ada data pemasukan.
+                    </td>
+                </tr>
+            `;
+            return;
+        }
+
+        hasil.data.forEach((item, index) => {
+
+            const tr = document.createElement("tr");
+
+            const tanggal = item.tanggal
+                ? new Date(
+                    item.tanggal + "T00:00:00"
+                ).toLocaleDateString("id-ID")
+                : "-";
+
+            const keterangan = [
+                item.keterangan,
+                item.jenis === "DP" && item.nama_pemesan
+                    ? "Pemesan: " + item.nama_pemesan
+                    : "",
+                item.jenis === "DP" && item.room
+                    ? "Room: " + item.room
+                    : ""
+            ].filter(Boolean).join(" | ") || "-";
+
+            const nominal = Number(
+                item.nominal || 0
+            ).toLocaleString("id-ID");
+
+            [
+                index + 1,
+                tanggal,
+                item.jenis,
+                keterangan,
+                "Rp " + nominal
+            ].forEach(teks => {
+
+                const td = document.createElement("td");
+                td.textContent = teks;
+                tr.appendChild(td);
+
+            });
+
+            const tdAksi = document.createElement("td");
+
+            const tombolEdit = document.createElement("button");
+            tombolEdit.type = "button";
+            tombolEdit.className = "btn-edit-finance";
+            tombolEdit.dataset.id = item.id;
+            tombolEdit.textContent = "Edit";
+
+            tdAksi.appendChild(tombolEdit);
+            tr.appendChild(tdAksi);
+
+            tbody.appendChild(tr);
+
+        });
+
+        console.log(
+            "DAFTAR PEMASUKAN BERHASIL DIMUAT:",
+            hasil.data.length,
+            "DATA"
+        );
+
+    }
+
+    // Muat otomatis saat halaman dibuka
+    muatDaftarPemasukan();
+    
 });
 
