@@ -7044,7 +7044,18 @@ document.addEventListener("DOMContentLoaded", function () {
     const financeKeteranganPemasukan =
         document.getElementById("financeKeteranganPemasukan");
 
+    
+    // ==========================================
+    // MODE EDIT PEMASUKAN
+    // ==========================================
 
+        let editFinanceId = null;
+
+            const tombolSimpanAwal =
+            btnSimpanPemasukan
+            ? btnSimpanPemasukan.innerHTML
+            : "";   
+    
     // ==========================================
     // ELEMENT KHUSUS DP
     // ==========================================
@@ -7074,6 +7085,130 @@ document.addEventListener("DOMContentLoaded", function () {
 
         return;
     }
+
+    
+    // ==========================================
+    // KLIK TOMBOL EDIT LAPORAN DETAIL KEUANGAN
+    // ==========================================
+
+    document.addEventListener(
+        "click",
+        async function (event) {
+
+            const tombolEdit =
+                event.target.closest(".btn-edit-finance");
+
+            if (!tombolEdit) {
+                return;
+            }
+
+            const id = tombolEdit.dataset.id;
+
+            if (!id) {
+                alert("ID pemasukan tidak ditemukan.");
+                return;
+            }
+
+            try {
+
+                tombolEdit.disabled = true;
+
+                console.log(
+                    "Mengambil data pemasukan ID:",
+                    id
+                );
+
+                const hasil =
+                    await supabaseClient
+                        .from("keuangan")
+                        .select("*")
+                        .eq("id", id)
+                        .single();
+
+                if (hasil.error) {
+                    throw hasil.error;
+                }
+
+                const item = hasil.data;
+
+                // Isi Form Utama
+
+                financeJenisPemasukan.value =
+                    item.jenis || "UMUM";
+
+                financeTanggalPemasukan.value =
+                    item.tanggal || "";
+
+                financeNominalPemasukan.value =
+                    item.nominal || "";
+
+                financeKeteranganPemasukan.value =
+                    item.keterangan || "";
+
+                // Isi Data DP
+
+                if (financeTanggalPesanan) {
+                    financeTanggalPesanan.value =
+                        item.tanggal_pesanan || "";
+                }
+
+                if (financeNamaPemesan) {
+                    financeNamaPemesan.value =
+                        item.nama_pemesan || "";
+                }
+
+                if (financeRoom) {
+                    financeRoom.value =
+                        item.room || "";
+                }
+
+                // Tampilkan atau sembunyikan Form DP
+
+                if (financeDataDP) {
+                    financeDataDP.style.display =
+                        item.jenis === "DP"
+                            ? "block"
+                            : "none";
+                }
+
+                // Aktifkan Mode Edit
+
+                editFinanceId = item.id;
+
+                btnSimpanPemasukan.innerHTML =
+                    "Update Pemasukan";
+
+                console.log(
+                    "DATA EDIT BERHASIL DIMUAT:",
+                    item
+                );
+
+                alert(
+                    "Data pemasukan berhasil dimuat ke Form."
+                );
+
+                financeJenisPemasukan.focus();
+
+            } catch (error) {
+
+                console.error(
+                    "GAGAL MEMUAT DATA EDIT:",
+                    error
+                );
+
+                alert(
+                    "Gagal mengambil data pemasukan: " +
+                    error.message
+                );
+
+            } finally {
+
+                tombolEdit.disabled = false;
+
+            }
+
+        }
+    );
 
 
     // ==========================================
@@ -7309,15 +7444,34 @@ document.addEventListener("DOMContentLoaded", function () {
                 );
 
 
-                // ==========================================
-                // SIMPAN KE SUPABASE
-                // ==========================================
+                
+            // ==========================================
+            // SIMPAN / UPDATE KE SUPABASE
+            // ==========================================
 
-                const hasilInsert =
-                    await supabaseClient
-                        .from("keuangan")
-                        .insert([dataPemasukan])
-                        .select();
+                let hasilInsert;
+
+                const sedangEdit =
+                    editFinanceId !== null;
+
+                if (sedangEdit) {
+
+                    hasilInsert =
+                        await supabaseClient
+                            .from("keuangan")
+                            .update(dataPemasukan)
+                            .eq("id", editFinanceId)
+                            .select();
+
+                } else {
+
+                    hasilInsert =
+                        await supabaseClient
+                            .from("keuangan")
+                            .insert([dataPemasukan])
+                            .select();
+
+                }
 
 
                 // ==========================================
@@ -7340,6 +7494,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 );
 
 
+                // ==========================================
+                // CETAK HANYA UNTUK PEMASUKAN BARU
+                // ==========================================
+
+                    if (!sedangEdit) {
+                
                 // ==========================================
                 // SUSUN BUKTI PEMASUKAN
                 // ==========================================
@@ -7582,7 +7742,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     );
 
                 }
-
+} // AKHIR CETAK PEMASUKAN BARU
 
                 // ==========================================
                 // RESET FORM
@@ -7636,27 +7796,53 @@ document.addEventListener("DOMContentLoaded", function () {
                     "✅ FORM PEMASUKAN BERHASIL DIRESET."
                 );
 
+     // ==========================================
+     // RESET MODE EDIT
+    // ==========================================
 
-                // ==========================================
-                // HASIL AKHIR
-                // ==========================================
+    editFinanceId = null;
 
-                if (cetakBerhasil) {
+    if (btnSimpanPemasukan) {
+        btnSimpanPemasukan.innerHTML =
+            tombolSimpanAwal;
+    }
 
-                    alert(
-                        "Pemasukan berhasil disimpan dan bukti berhasil dicetak."
-                    );
+         // ==========================================
+        // HASIL AKHIR
+        // ==========================================
 
-                } else {
+            if (sedangEdit) {
 
-                    alert(
-                        "Pemasukan berhasil disimpan, tetapi bukti belum dapat dicetak.\n\n" +
-                        "Periksa koneksi Cleanter dan printer."
-                    );
-                }
+                alert(
+                    "Data pemasukan berhasil diperbarui."
+                );
 
+            } else if (cetakBerhasil) {
 
-            } catch (error) {
+                alert(
+                    "Pemasukan berhasil disimpan dan bukti berhasil dicetak."
+                );
+
+            } else {
+
+                alert(
+                    "Pemasukan berhasil disimpan, tetapi bukti belum dapat dicetak.\n\n" +
+                    "Periksa koneksi Cleanter dan printer."
+                );
+        }
+
+                
+            // ==========================================
+            // RESET MODE EDIT
+            // ==========================================
+
+                editFinanceId = null;
+
+            if (btnSimpanPemasukan) {
+                btnSimpanPemasukan.innerHTML =
+                    tombolSimpanAwal;
+            }
+                } catch (error) {
 
                 // ==========================================
                 // ERROR PENYIMPANAN
