@@ -8310,13 +8310,22 @@ if (btnBatalPemasukan) {
 
             const tdAksi = document.createElement("td");
 
+
             const tombolEdit = document.createElement("button");
             tombolEdit.type = "button";
             tombolEdit.className = "btn-edit-finance";
             tombolEdit.dataset.id = item.id;
             tombolEdit.textContent = "Edit";
 
+            const tombolHapus = document.createElement("button");
+            tombolHapus.type = "button";
+            tombolHapus.className = "btn-delete-pemasukan";
+            tombolHapus.dataset.id = item.id;
+            tombolHapus.textContent = "Hapus";
+
             tdAksi.appendChild(tombolEdit);
+            tdAksi.appendChild(tombolHapus);
+
             tr.appendChild(tdAksi);
 
             tbody.appendChild(tr);
@@ -8330,7 +8339,83 @@ if (btnBatalPemasukan) {
         );
 
     }
+  
+    // ==========================================
+    // HAPUS DAFTAR PEMASUKAN
+    // ==========================================
 
+    const tbodyPemasukan = document.getElementById(
+        "financePemasukanTableBody"
+    );
+
+    if (tbodyPemasukan) {
+
+        tbodyPemasukan.addEventListener(
+            "click",
+            async function(event) {
+
+                const tombolHapus = event.target.closest(
+                    ".btn-delete-pemasukan"
+                );
+
+                if (!tombolHapus) {
+                    return;
+                }
+
+                const id = tombolHapus.dataset.id;
+
+                if (!id) {
+                    alert("ID pemasukan tidak ditemukan.");
+                    return;
+                }
+
+                const konfirmasi = confirm(
+                    "Apakah Anda yakin ingin menghapus data pemasukan ini?"
+                );
+
+                if (!konfirmasi) {
+                    return;
+                }
+
+                try {
+
+                    tombolHapus.disabled = true;
+
+                    const hasilHapus = await supabaseClient
+                        .from("keuangan")
+                        .delete()
+                        .eq("id", id)
+                        .in("jenis", ["UMUM", "DP"]);
+
+                    if (hasilHapus.error) {
+                        throw hasilHapus.error;
+                    }
+
+                    alert("Data pemasukan berhasil dihapus.");
+
+                    await muatDaftarPemasukan();
+
+                } catch (error) {
+
+                    console.error(
+                        "GAGAL MENGHAPUS PEMASUKAN:",
+                        error
+                    );
+
+                    alert(
+                        "Data pemasukan gagal dihapus.\n\n" +
+                        error.message
+                    );
+
+                    tombolHapus.disabled = false;
+
+                }
+
+            }
+        );
+
+    }
+    
     // Muat otomatis saat halaman dibuka
     muatDaftarPemasukan();
     
