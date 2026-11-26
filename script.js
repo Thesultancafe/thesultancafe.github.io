@@ -8308,25 +8308,54 @@ if (btnBatalPemasukan) {
 
             });
 
-            const tdAksi = document.createElement("td");
+         
+        const tdAksi = document.createElement("td");
 
+        tdAksi.style.textAlign = "center";
+        tdAksi.style.whiteSpace = "nowrap";
 
-            const tombolEdit = document.createElement("button");
-            tombolEdit.type = "button";
-            tombolEdit.className = "btn-edit-finance";
-            tombolEdit.dataset.id = item.id;
-            tombolEdit.textContent = "Edit";
+        // TOMBOL EDIT
 
-            const tombolHapus = document.createElement("button");
-            tombolHapus.type = "button";
-            tombolHapus.className = "btn-delete-pemasukan";
-            tombolHapus.dataset.id = item.id;
-            tombolHapus.textContent = "Hapus";
+        const tombolEdit = document.createElement("button");
 
-            tdAksi.appendChild(tombolEdit);
-            tdAksi.appendChild(tombolHapus);
+        tombolEdit.type = "button";
+        tombolEdit.className =
+        "btn-secondary btn-edit-finance";
 
-            tr.appendChild(tdAksi);
+        tombolEdit.dataset.id = item.id;
+
+        tombolEdit.style.padding = "6px 10px";
+
+        tombolEdit.innerHTML = `
+        <i class="fa-solid fa-pen-to-square"></i>
+        Edit
+            `;
+
+        // TOMBOL HAPUS
+
+        const tombolHapus = document.createElement("button");
+
+        tombolHapus.type = "button";
+        tombolHapus.className =
+        "btn-secondary btn-delete-pemasukan";
+
+        tombolHapus.dataset.id = item.id;
+
+        tombolHapus.style.padding = "6px 10px";
+
+        tombolHapus.style.marginLeft = "5px";
+
+        tombolHapus.innerHTML = `
+            <i class="fa-solid fa-trash"></i>
+            Hapus
+        `;
+
+// MASUKKAN KEDUA TOMBOL
+
+tdAksi.appendChild(tombolEdit);
+tdAksi.appendChild(tombolHapus);
+
+tr.appendChild(tdAksi);
 
             tbody.appendChild(tr);
 
