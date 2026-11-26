@@ -7826,6 +7826,12 @@ if (btnBatalPemasukan) {
 } // AKHIR CETAK PEMASUKAN BARU
 
                 // ==========================================
+                // PERBARUI DAFTAR PEMASUKAN
+                // ==========================================
+
+                await muatDaftarPemasukan();            
+            
+                // ==========================================
                 // RESET FORM
                 // ==========================================
 
